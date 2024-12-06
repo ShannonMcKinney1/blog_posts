@@ -1,0 +1,9 @@
+[submodule "themes/todayilearned"]
+	path = themes/todayilearned
+	url = https://github.com/michenriksen/hugo-theme-til
+[submodule "themes/blowfish"]
+	path = themes/blowfish
+	url = https://github.com/nunocoracao/blowfish
+[submodule "themes/ananke"]
+	path = themes/ananke
+	url = https://github.com/theNewDynamic/gohugo-theme-ananke.git
