@@ -1,6 +1,7 @@
 ---
-title: "Why Bullet Journal? "
+title: "Why Bullet Journal?"
 date: 2024-12-04T23:10:36-05:00
+draft: false
 ---
 
 
