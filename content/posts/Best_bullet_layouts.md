@@ -1,6 +1,6 @@
 ---
 title: "Best Bullet Journal Layouts"
-date: 2024-12-04T23:10:36-05:00
+date: 2024-12-08T23:10:36-05:00
 draft: false
 ---
 
