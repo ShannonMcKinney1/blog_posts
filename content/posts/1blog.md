@@ -42,7 +42,6 @@ Bullet Journal Ideas
 
 Pictures I haven't used yet: 
 - glasgow countdown 
-- 2024_goals
 - 3 months at a glance
 
 
