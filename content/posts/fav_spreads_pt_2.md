@@ -1,5 +1,5 @@
 ---
-title: "My All Time Favorite Bullet Journal Spreads"
+title: "My All Time Favorite Bullet Journal Spreads Part 2"
 date: 2024-12-09T23:10:36-05:00
 draft: false
 ---
