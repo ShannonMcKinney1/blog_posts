@@ -7,6 +7,8 @@ draft: false
 
 I absolutely love when I have the time to really put effort into a page. It’s the perfect opportunity to use my fancy pens and stickers. Usually, I’ll practice the design on another page first to make sure everything looks just right. Here’s a collection of my favorite pages that I’ve created so far.
 
+
+
 ## Scotland Trip Page
 When I was preparing for my trip to Scotland, I wanted to create a page to commemorate the adventure. I free-handed the outline of the country in pencil, including many of the small islands that surround it, and then went over it with pen. On the right side, I listed the cities we were visiting and some food/entertainment suggestions. On the left side, I added our trip itinerary. This page is one of my favorites so far—I love how it turned out!
 
