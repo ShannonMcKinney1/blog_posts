@@ -37,7 +37,14 @@ Bullet Journal Ideas
 100 days of something blog: 
 - advent of code
 - mixing music 
-- 
+
+
+
+Pictures I haven't used yet: 
+- glasgow countdown 
+- 2024_goals
+- 3 months at a glance
+
 
 
 
