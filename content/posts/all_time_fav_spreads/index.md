@@ -22,7 +22,7 @@ For February, I wanted to do something special for the month. I also had some su
 ## Summer Bucket List with Magazine Collage
 For this page, I used different mediums to fill the space. I cut out pieces from an Ulta Beauty magazine and turned them into clouds for a border. While I think I could’ve used a better adhesive than Scotch tape, it worked well enough! This spread became a summer bucket list, as I find myself daydreaming about all the things I want to do in the upcoming season. I’ve made a few seasonal bucket lists like this, and I always enjoy looking back on them.
 
-![Summer Bucketlist page](./summer_bucket.jpg)
+![Summer Bucket List page](./summer_bucket.jpg)
 
 ## Doodle Page
 I like to call this one my "doodle page." It was quick to make, filled up a lot of spare time, and turned out as a fun accent in my journal. I started doodling in one corner and kept going until I had filled the whole page! I especially like to do this during lectures—it helps me stay focused and engaged. Plus, it’s a great way to add a little something extra between the more functional pages.

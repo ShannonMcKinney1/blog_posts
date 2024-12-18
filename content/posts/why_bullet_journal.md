@@ -21,4 +21,4 @@ Bullet journaling has given me a creative outlet while also helping me manage my
 
 The best part about bullet journaling, for me, is that it can be whatever you want it to be. Your pages can be messy lists and notes, as long as they work for you! There’s no need to worry about anyone seeing it except yourself. And if you want something visually appealing, the very next page is a blank canvas. The key is to keep it low-stress—just don’t set your expectations too high or aim for "the perfect" page.
 
-I hope this post has inspired you and encouraged you to start your own journaling journey!
+I hope this post has inspired you and encouraged you to start your own journaling journey! Check out my other posts for inspiration on pages, organizational tips, and more! 

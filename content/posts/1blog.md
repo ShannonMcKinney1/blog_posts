@@ -45,6 +45,12 @@ Pictures I haven't used yet:
 - 3 months at a glance
 
 
+Drafts: 
+- how to network
+- authentic career goals
+- journaling for the new year process
+
+
 
 
 
