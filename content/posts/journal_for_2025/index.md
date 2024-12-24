@@ -1,6 +1,6 @@
 ---
 title: "Journal for 2025"
-date: 2024-12-27T12:10:36-05:00
+date: 2024-12-26T12:10:36-05:00
 draft: true
 ---
 
@@ -46,8 +46,7 @@ From there, branch out with specific goals for each area. For example:
 - Career: Complete a professional development course.
 - Creativity: Draw more frequently.
 
-### insert picture of mind map here
-![Mind Map](./circle.jpg)
+![Mind Map](./mind_map.jpg)
 
 ### Step 2: Refine Your Goals
 
@@ -65,19 +64,19 @@ I continued using my color scheme to keep things visually appealing and easy to 
 
 Here is my list:
 
-### insert picture of goal list here
-![Goal List 1](./circle.jpg)
+![Goal List 1](./goal_recap.jpg)
+
+All of mine aren't completely SMART but I kept the principles in mind when creating my list of goals. 
 
 ### Step 3
 
-Now its time to boil this down to your main goals! Pick 3-5 that Next, narrow down your list to 3-5 goals that you want to prioritize for the year. Write these goals on the next page, leaving space under each one to add why they are important to you and how you plan to achieve them. This step will help you turn big, daunting goals into smaller, actionable steps.
+Next, narrow down your list to 3-5 goals that you want to prioritize for the year. Write these goals on the next page, leaving space under each one to add why they are important to you and how you plan to achieve them. This step will help you turn big, daunting goals into smaller, actionable steps.
 
 For example, “Learn to play the piano” can feel overwhelming. But if you break it down into smaller steps—such as “sign up for piano lessons,” “buy a beginner’s piano book,” and “practice 30 minutes every week”—it becomes more manageable and gives you a roadmap to follow throughout the year.
 
 Here are mine: 
 
-### insert picture of goal list here
-![Goal list 2](./circle.jpg)
+![Goal list 2](./focus_goals.jpg)
 
 ### Step 4 (Optional): Create a Pretty Goal Page
 
