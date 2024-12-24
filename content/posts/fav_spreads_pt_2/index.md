@@ -1,7 +1,7 @@
 ---
 title: "My All Time Favorite Bullet Journal Spreads Part 2"
-date: 2024-12-10T12:10:36-05:00
-draft: true
+date: 2024-12-23T12:10:36-05:00
+draft: false
 ---
 
 
@@ -53,7 +53,3 @@ With the new year fast approaching, it’s time to set new goals! For my goal-se
 
 
 That’s all I have for now! I hope these pages inspire you as you plan your own journal for the new year. Happy journaling!
-
-
-
-
