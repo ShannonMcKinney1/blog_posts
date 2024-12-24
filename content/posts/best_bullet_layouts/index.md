@@ -1,6 +1,6 @@
 ---
 title: "Best Bullet Journal Layouts to get Things Done"
-date: 2024-12-08T10:10:36-05:00
+date: 2024-12-12T10:10:36-05:00
 ---
 
 
