@@ -1,7 +1,7 @@
 ---
 title: "Journal for 2025"
 date: 2024-12-26T12:10:36-05:00
-draft: true
+draft: false
 ---
 
 Its that time of year again! Time to reflect on the past and make plans for the future! I want to go through my 2025 journaling techniques for reflecting and what I am doing to prepare for the new year. 
@@ -80,10 +80,6 @@ Here are mine:
 
 ### Step 4 (Optional): Create a Pretty Goal Page
 
-For extra motivation, I like to create a visually appealing goal page in my journal. This page serves as a reminder of why I set these goals and helps me stay focused throughout the year. Feel free to copy my layout or make it your own! I aimed for a balance between functional and fun, so I can enjoy looking at it every day.
-
-### insert picture of goal list here
-![Pretty goal page](./circle.jpg)
-
+For extra motivation, I like to create a visually appealing goal page in my new year's journal. This page serves as a reminder of why I set these goals and helps me stay focused throughout the year. Feel free to copy my layout or make it your own! I aimed for a balance between functional and fun, so I can enjoy looking at it every day.
 
 I hope this post helps you prioritize your goals for the new year and sets you up for success in 2025! Happy journaling and Happy New Year!
