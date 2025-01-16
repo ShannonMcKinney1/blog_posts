@@ -1,5 +1,5 @@
 ---
-title: "Journal for 2025"
+title: "How to Create an Effective Goal-Setting Layout for the New Year"
 date: 2024-12-26T12:10:36-05:00
 draft: false
 ---

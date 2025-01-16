@@ -1,1 +1,10 @@
 theme = 'ananke'
+sectionPagesMenu = 'main'
+
+[menus]
+  [[menus.main]]
+    name = 'Homepage'
+    pageRef = '/homepage'
+    weight = 10
+    [menus.main.params]
+      rel = 'external'
