@@ -2,15 +2,15 @@
 title: "14 Tips on How to Network"
 layout: ../../layouts/MarkdownPostLayout.astro
 author: Shannon McKinney
-description: "This post will show up on its own!"
+description: "Now that I am in the real world and have started my career, networking is going to be more important than ever! I did some research and came up with a list of the 14 best tips on preparing for and succeeding at networking events. This is a list I will be coming back to next time there is an opportunity for me to meet new people in my career field."
 image:
-    url: "https://docs.astro.build/default-og-image.png"
+    url: "./all_time_fav_spreads/cocktail.jpg"
     alt: "The word astro against an illustration of planets and stars."
 pubDate: 2024-12-28
 tags: ["astro", "successes"]
 ---
 
-Now that I am in "the real world" and have started my career, networking is going to be more important than ever! I did some research and came up with a list of the 14 best tips on preparing for and succeeding at networking events. This is a list I will be coming back to next time there is an opportunity for me to meet new people in my career field. 
+
 
 Networking is an essential skill for career growth, but it can feel daunting at times, especially in large company events or conferences. Whether you're a seasoned professional or just starting out, improving your networking skills can help you make meaningful connections and open new doors. Here are some practical tips to keep in mind next time you're at a networking event, conference, or any professional gathering.
 

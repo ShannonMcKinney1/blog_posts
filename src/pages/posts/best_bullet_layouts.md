@@ -2,16 +2,16 @@
 title: "Best Bullet Journal Layouts to get Things Done"
 layout: ../../layouts/MarkdownPostLayout.astro
 author: Shannon McKinney
-description: "This post will show up on its own!"
+description: "Trust me, I’ve been there. Scrolling through endless Top 10 lists for bullet journal layouts because you're either not satisfied with your current setup or you’re looking for something fresh. Personally, I believe a layout should be tailored to how you want to organize your life. But sometimes, seeing a few examples or getting some inspiration can help you find the perfect style. So, here are my favorite layouts that I’ve used so far."
 image:
-    url: "https://docs.astro.build/default-og-image.png"
+    url: "./all_time_fav_spreads/cocktail.jpg"
     alt: "The word astro against an illustration of planets and stars."
 pubDate: 2024-12-12
 tags: ["astro", "successes"]
 ---
 
 
-Trust me, I’ve been there. Scrolling through endless "Top 10" lists for bullet journal layouts because you're either not satisfied with your current setup or you’re looking for something fresh. Personally, I believe a layout should be tailored to how you want to organize your life. But sometimes, seeing a few examples or getting some inspiration can help you find the perfect style. So, here are my favorite layouts that I’ve used so far.
+
 
 ### Monthly Layout
 I love starting with a monthly spread. It’s a great way to get excited for the upcoming season and refocus on your goals. A monthly spread can also be a perfect opportunity for reflection:

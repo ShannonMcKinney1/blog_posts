@@ -2,16 +2,14 @@
 layout: ../../layouts/MarkdownPostLayout.astro
 title: "My Book Review: 50 Ways to Excel in You First Job (and in Life)"
 author: Shannon McKinney
-description: "This post will show up on its own!"
+description: "I just finished reading 50 Ways to Excel in your First Job (And in Life) by Antonio Neves and wanted to give a review and summary for the most memorable points (in my opinion). "
 image:
-    url: "https://docs.astro.build/default-og-image.png"
+    url: "./all_time_fav_spreads/cocktail.jpg"
     alt: "The word astro against an illustration of planets and stars."
 pubDate: 2025-02-02
 tags: ["astro", "successes"]
 ---
 
-
-I just finished reading "50 Ways to Excel in your First Job (And in Life)" by Antonio Neves and wanted to give a review and summary for the most memorable points (in my opinion). 
 
 To start with, there were many great pointers in this short coffee table book and many great metaphors. I wanted to pick out the ones that I either haven't heard before or the ones that I thought were great reminders for my own career path. 
 

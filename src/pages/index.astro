@@ -1,20 +1,81 @@
 ---
-import "../styles/global.css"
+import "../styles/global.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Greeting from '../components/Greeting.jsx';
+const pageTitle = "Welcome to My Journal Blog";
+
 ---
+<BaseLayout pageTitle={pageTitle}>
+  <!-- <Greeting client:load messages={["Hej", "Hallo", "Hola", "Habari"]} /> -->
+  <div class="flex">
+    <h1 class="w-[75%]"></h1>
+    <p>
+    Hello, and welcome to my journal blog—a place where I share my personal
+    journey through journaling, my experiences as a newcomer to the corporate
+    world, and the ways both have helped me reflect, grow, and plan for the
+    future.
+    <br />
+    Journaling has been a powerful tool for me to organize my thoughts, set goals,
+    and track my progress. As I navigate the early stages of my career, I also use
+    journaling to process new challenges, celebrate wins, and learn from mistakes.
+    On this blog, I’ll share my greatest tips and tricks I have learned so far to
+    keep myself afloat in this busy world.
+    </p>
+  </div>
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} >
-    <title>My Blog!</title>
-  </head>
-  <body>
-	<a href="/">Home</a>
-	<a href="/about/">About</a>
-    <a href="/blog/">Blog</a>
+<div class="flex bg-background-300">
+  <h2 class="w-[25%]">What You'll Find Here:</h2>
+  <p>
+    <ul>
+      <li>
+        <b>Journaling Tips</b>: Practical advice on how to start and maintain
+        a journal, as well as ways to incorporate creative spreads into your
+        routine.
+      </li>
+      <li>
+        <b>Goal Setting</b>: Strategies for setting achievable goals, creating
+        action plans, and tracking your progress.
+      </li>
+      <li>
+        <b>Monthly and Yearly Spreads</b>: Inspiration for unique and
+        effective bullet journal layouts for tracking habits, moods, and more.
+      </li>
+      <li>
+        <b>BUJO Layout Inspriations</b>: Lists of my favorite pages I've done
+        to date to inspire you!
+      </li>
+    </ul>
+  </p>
+</div>
+<div class="flex">
+<p class="w-[50%]">
+  Whether you're new to journaling, just starting your career, or looking for
+  inspiration to balance both, you're in the right place. I hope my
+  experiences and tips inspire you to reflect on your own journey, set
+  meaningful goals, and embrace new challenges. Feel free to explore the blog,
+  read my posts, and share your thoughts in the comments! Let’s connect
+  through the art of journaling and the business of keeping ourselves
+  together.
+</p>
+<h2 class="flex justify-end">Join Me on This Journey</h2>
+</div>
+<p>Happy Journaling!</p>
 
-    <h1>My Blog!</h1>
-  </body>
-</html>
+<h2>Latest Posts</h2>
+<p>
+<ul>
+  <li>
+    <b>My Favorite Spreads Part 2</b>
+  </li>
+  <li>
+    <b>Goal Setting for 2025</b>
+  </li>
+  <li>
+    <b>Monthly and Yearly Spreads</b>
+  </li>
+  <li>
+    <b>BUJO Layout Inspriations</b>
+  </li>
+</ul>
+</p>
+</BaseLayout>

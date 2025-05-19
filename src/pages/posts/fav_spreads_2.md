@@ -2,16 +2,13 @@
 title: "My All Time Favorite Bullet Journal Spreads Part 2"
 layout: ../../layouts/MarkdownPostLayout.astro
 author: Shannon McKinney
-description: "This post will show up on its own!"
+description: "I’m back with more of my favorite spreads from the past year! With the new year fast approaching, I’ve been reflecting on the past year, and part of that reflection has been looking through the pages of my journal. Here are some of my standout pages that I’m especially proud of. I hope they inspire you as you plan for your own journaling in the upcoming year!"
 image:
-    url: "https://docs.astro.build/default-og-image.png"
+    url: "./all_time_fav_spreads/cocktail.jpg"
     alt: "The word astro against an illustration of planets and stars."
 pubDate: 2024-12-23
 tags: ["astro", "successes"]
 ---
-
-
-I’m back with more of my favorite spreads from the past year! With the new year fast approaching, I’ve been reflecting on the past year, and part of that reflection has been looking through the pages of my journal. Here are some of my standout pages that I’m especially proud of. I hope they inspire you as you plan for your own journaling in the upcoming year!
 
 ## Monthly Spreads
 I have a few monthly spreads this year that turned out particularly well.

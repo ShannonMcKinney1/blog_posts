@@ -2,16 +2,13 @@
 title: "Why Bullet Journal?"
 layout: ../../layouts/MarkdownPostLayout.astro
 author: Shannon McKinney
-description: "This post will show up on its own!"
+description: "You may be wondering about the trend of bullet journaling and whether it's something worth trying. Well, I can tell you that it has transformed my life for the better. And the best part? You don’t need to spend hours perfecting every page (despite what you might see online). Let me share my journey and offer some inspiration to help you start your own bullet journal."
 image:
-    url: "https://docs.astro.build/default-og-image.png"
+    url: "./all_time_fav_spreads/cocktail.jpg"
     alt: "The word astro against an illustration of planets and stars."
 pubDate: 2024-12-04
 tags: ["astro", "successes"]
 ---
-
-
-You may be wondering about the trend of bullet journaling and whether it's something worth trying. Well, I can tell you that it has transformed my life for the better. And the best part? You don’t need to spend hours perfecting every page (despite what you might see online). Let me share my journey and offer some inspiration to help you start your own bullet journal.
 
 I first started journaling back in middle school with the small planners we were given at the beginning of each school year. I loved these planners because they helped me stay organized with all my due dates for homework and projects. I never missed a deadline! I think this is where my love for planning and making lists truly began.
 

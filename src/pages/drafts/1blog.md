@@ -1,7 +1,13 @@
 ---
-title: ""
-date: 2024-12-04T23:10:36-05:00
-draft: true
+layout: ../../layouts/MarkdownPostLayout.astro
+title: "blog draft"
+author: Shannon McKinney
+description: "I just finished reading 50 Ways to Excel in your First Job (And in Life) by Antonio Neves and wanted to give a review and summary for the most memorable points (in my opinion). "
+image:
+    url: "./all_time_fav_spreads/cocktail.jpg"
+    alt: "The word astro against an illustration of planets and stars."
+pubDate: 2025-02-02
+tags: ["astro", "successes"]
 ---
 
 # Blog 1

@@ -2,15 +2,13 @@
 title: "How to Create an Effective Goal-Setting Layout for the New Year"
 layout: ../../layouts/MarkdownPostLayout.astro
 author: Shannon McKinney
-description: "This post will show up on its own!"
+description: "Its that time of year again! Time to reflect on the past and make plans for the future! I want to go through my 2025 journaling techniques for reflecting and what I am doing to prepare for the new year."
 image:
-    url: "https://docs.astro.build/default-og-image.png"
+    url: "./all_time_fav_spreads/cocktail.jpg"
     alt: "The word astro against an illustration of planets and stars."
 pubDate: 2024-12-26
 tags: ["astro", "successes"]
 ---
-
-Its that time of year again! Time to reflect on the past and make plans for the future! I want to go through my 2025 journaling techniques for reflecting and what I am doing to prepare for the new year. 
 
 ## Reflect and Review
 
