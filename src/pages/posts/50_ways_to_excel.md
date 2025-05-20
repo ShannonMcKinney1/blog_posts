@@ -7,7 +7,7 @@ image:
     url: "./all_time_fav_spreads/cocktail.jpg"
     alt: "The word astro against an illustration of planets and stars."
 pubDate: 2025-02-02
-tags: ["astro", "successes"]
+tags: ["Career", "Book Review"]
 ---
 
 

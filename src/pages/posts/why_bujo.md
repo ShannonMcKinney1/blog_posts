@@ -7,7 +7,7 @@ image:
     url: "./all_time_fav_spreads/cocktail.jpg"
     alt: "The word astro against an illustration of planets and stars."
 pubDate: 2024-12-04
-tags: ["astro", "successes"]
+tags: ["BUJO", ]
 ---
 
 I first started journaling back in middle school with the small planners we were given at the beginning of each school year. I loved these planners because they helped me stay organized with all my due dates for homework and projects. I never missed a deadline! I think this is where my love for planning and making lists truly began.
