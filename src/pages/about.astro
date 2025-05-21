@@ -8,20 +8,13 @@ const identity = {
   firstName: "Shannon",
   country: "United States",
   occupation: "Software Engineer",
-  hobbies: ["coding", "birdwatching", "foodie", "young professional",],
+  hobbies: ["coding", "birdwatching"],
 };
 
-const skills = ["HTML", "CSS", "Tailwind", "JavaScript", "React", "Astro", "Writing Docs"];
+const skills = ["Pretty bullet journal spreads", "Traveling", "Navigating the corporate world", "Photo collections"];
 ---
 <BaseLayout pageTitle={pageTitle}>
-    <h2>... and my new Astro site!</h2>
-    <p>I am working through Astro's introductory tutorial. 
-      This is the second page on my website, and it's the first one I built myself!</p>
-  
-    <p>This site will update as I complete more of the tutorial, 
-      so keep checking back and see how my journey is going!</p>
-
-    <p>Here are a few facts about me:</p>
+    <p class="font-bold">Here are a few facts about me:</p>
   <ul>
     <li>My name is {identity.firstName}.</li>
     <li>I live in {identity.country} and I work as a {identity.occupation}.</li>
@@ -29,7 +22,7 @@ const skills = ["HTML", "CSS", "Tailwind", "JavaScript", "React", "Astro", "Writ
       <li>Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
     }
   </ul>
-<p>My skills are:</p>
+<p class="font-bold">My current areas of interest are:</p>
 <ul>
   {skills.map((skill) => <li>{skill}</li>)}
 </ul>
