@@ -1,6 +1,4 @@
 ---
-import Header from "../components/Header.astro";
-import NavBar from "../components/Navigation.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import "../styles/global.css";
 
@@ -10,10 +8,10 @@ const identity = {
   firstName: "Shannon",
   country: "United States",
   occupation: "Software Engineer",
-  hobbies: ["coding", "birdwatching", ""],
+  hobbies: ["coding", "birdwatching", "foodie", "young professional",],
 };
 
-const skills = ["HTML", "CSS", "JavaScript", "React", "Astro", "Writing Docs"];
+const skills = ["HTML", "CSS", "Tailwind", "JavaScript", "React", "Astro", "Writing Docs"];
 ---
 <BaseLayout pageTitle={pageTitle}>
     <h2>... and my new Astro site!</h2>
