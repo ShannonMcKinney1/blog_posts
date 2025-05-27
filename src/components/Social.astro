@@ -1,6 +1,9 @@
 ---
-const { platform, username } = Astro.props;
+import { Icon } from "astro-icon/components";
+const { platform, username, icon } = Astro.props;
 ---
-<div class="px-1.5 text-white bg-accent-pink">
-    <a href={`https://www.${platform}.com/${username}`}>{platform}</a>
-</div>
+    <a href={`https://www.${platform}.com/${username}`} 
+        class="px-2 text-white bg-accent-pink btn border-r-2 border-accent-pink">
+        <Icon name={icon} class="inline px-1 size-10" />
+        {platform}
+    </a>

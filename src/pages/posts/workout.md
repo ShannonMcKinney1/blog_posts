@@ -7,7 +7,7 @@ image:
     url: "./all_time_fav_spreads/cocktail.jpg"
     alt: "The word astro against an illustration of planets and stars."
 pubDate: 2025-01-15
-tags: ["astro", "successes"]
+tags: ["BUJO", "Lifestyle", "Goal Setting", "Page Ideas"]
 ---
 
 You can do this with any of your hobbies: knitting, reading, movie watching, are just some ideas that I have seen online. 

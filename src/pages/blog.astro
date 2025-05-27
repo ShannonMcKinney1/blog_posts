@@ -1,5 +1,4 @@
 ---
-import Card from "../components/Card.astro"
 import BaseLayout from "../layouts/BaseLayout.astro"
 import BlogPost from '../components/BlogPost.astro';
 import "../styles/global.css"
@@ -9,10 +8,7 @@ const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true })
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-    <!-- <div>
-      <Card></Card>
-    </div> -->
-    <ul><u>
-      {allPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} />)}
-    </u></ul>
+    <ul>
+      {allPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} description={post.frontmatter.description}/>)}
+    </ul>
   </BaseLayout>

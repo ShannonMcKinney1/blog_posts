@@ -2,9 +2,11 @@
 import "../styles/global.css";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Greeting from '../components/Greeting.jsx';
+import BlogPost from "../components/BlogPost.astro";
 const pageTitle = "Welcome to My Journal Blog";
-
+const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
 ---
+
 <BaseLayout pageTitle={pageTitle}>
   <!-- <Greeting client:load messages={["Hej", "Hallo", "Hola", "Habari"]} /> -->
   <div class="flex">
@@ -62,20 +64,9 @@ const pageTitle = "Welcome to My Journal Blog";
 <p>Happy Journaling!</p>
 
 <h2>Latest Posts</h2>
-<p>
+
 <ul>
-  <li>
-    <b>My Favorite Spreads Part 2</b>
-  </li>
-  <li>
-    <b>Goal Setting for 2025</b>
-  </li>
-  <li>
-    <b>Monthly and Yearly Spreads</b>
-  </li>
-  <li>
-    <b>BUJO Layout Inspriations</b>
-  </li>
+  {allPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} description={post.frontmatter.description}/>)}
 </ul>
-</p>
+
 </BaseLayout>

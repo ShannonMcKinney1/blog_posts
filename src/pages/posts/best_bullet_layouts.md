@@ -7,10 +7,8 @@ image:
     url: "./all_time_fav_spreads/cocktail.jpg"
     alt: "The word astro against an illustration of planets and stars."
 pubDate: 2024-12-12
-tags: ["astro", "successes"]
+tags: ["BUJO", "Page Ideas", "BUJO Spreads"]
 ---
-
-
 
 
 ### Monthly Layout
