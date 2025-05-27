@@ -46,12 +46,22 @@ h1{
 h2{
   font-size:x-large; 
   margin: 1rem 0;
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
-p, li{
+p{
   font-size:large;
   padding:1rem;
+}
+
+li{
+  font-size:large;
+  padding:0.5rem;
+}
+
+ul{
+  list-style-type: disc;
+  padding-left: 2rem;
 }
 
 .blog-page{
@@ -71,7 +81,7 @@ p, li{
   border-radius: .5em;
   padding: .5em 1em;
   font-size: 1.15em;
-  background-color: #F8FCFD;
+  background-color: #eae1f4;
 }
 
 /* nav styles */
