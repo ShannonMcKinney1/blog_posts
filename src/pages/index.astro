@@ -68,5 +68,4 @@ const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true })
 <ul>
   {allPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} description={post.frontmatter.description}/>)}
 </ul>
-
 </BaseLayout>

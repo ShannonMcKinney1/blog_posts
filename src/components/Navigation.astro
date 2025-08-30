@@ -7,4 +7,50 @@
   <a href="/blog">Blog</a>
   <a href="/tags">Tags</a>
 </div>
+<style>
+
+.nav-links {
+  width: 100%;
+  top: 5rem;
+  background-color: #d5c3e9;
+  display: none;
+  margin: 0;
+  text-align: center;
+}
+
+.nav-links a {
+  display: block;
+  text-align: center;
+  padding: 10px 0;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: #d5c3e9;
+}
+
+.nav-links a:hover,
+.nav-links a:focus {
+  background-color: #8c1a6a;
+}
+
+.expanded {
+  display: unset;
+}
+
+@media screen and (min-width: 636px) {
+  .nav-links {
+    display: block;
+    position: static;
+    width: auto;
+  }
+
+  .nav-links a {
+    display: inline-block;
+    padding: 15px 20px;
+  }
+
+}
+
+</style>
 
