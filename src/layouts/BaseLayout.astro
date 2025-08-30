@@ -11,11 +11,17 @@ const { pageTitle } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
+    
   </head>
-  <body class="lg:max-w-4xl w-full">
+  <body class="">
+    <div class="md:w-[100px] lg:w-[200px] mx-auto md:bg-[url(/images/leave-border2.png)] md:bg-repeat-y"></div>
+    <div class="flex-1 mx-10 p-4 md:p-10 max-w-[876px]">
     <Header />
     <h1>{pageTitle}</h1>
     <slot />
-    <Footer />
+    <Footer/>
+  </div>
+    <div class="md:w-[100px] lg:w-[200px] mx-auto md:bg-[url(/images/leave-border2.png)] md:bg-repeat-y"></div>
+    
   </body>
 </html>

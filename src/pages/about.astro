@@ -15,7 +15,7 @@ const skills = ["Pretty bullet journal spreads", "Traveling", "Navigating the co
 ---
 <BaseLayout pageTitle={pageTitle}>
     <p class="font-bold">Here are a few facts about me:</p>
-  <ul>
+  <ul class="list-disc">
     <li>My name is {identity.firstName}.</li>
     <li>I live in {identity.country} and I work as a {identity.occupation}.</li>
     {identity.hobbies.length >= 2 &&
@@ -23,7 +23,7 @@ const skills = ["Pretty bullet journal spreads", "Traveling", "Navigating the co
     }
   </ul>
 <p class="font-bold">My current areas of interest are:</p>
-<ul>
+<ul class="list-disc">
   {skills.map((skill) => <li>{skill}</li>)}
 </ul>
 </BaseLayout>
