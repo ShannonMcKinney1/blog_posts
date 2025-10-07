@@ -8,15 +8,14 @@ const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true })
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-  <!-- <Greeting client:load messages={["Hej", "Hallo", "Hola", "Habari"]} /> -->
-  <div class="flex md:flex-col">
-    <h1 class="lg:w-[75%]"></h1>
+  <div class="flex flex-col text-lg">
     <p>
     Hello, and welcome to my journal blog—a place where I share my personal
     journey through journaling, my experiences as a newcomer to the corporate
     world, and the ways both have helped me reflect, grow, and plan for the
     future.
-    <br />
+  </p>
+    <p class="lg:block hidden">
     Journaling has been a powerful tool for me to organize my thoughts, set goals,
     and track my progress. As I navigate the early stages of my career, I also use
     journaling to process new challenges, celebrate wins, and learn from mistakes.
@@ -26,9 +25,9 @@ const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true })
   </div>
 
 <div class="flex flex-col bg-background-300 lg:flex-row">
-  <h2 class="lg:w-[25%]">What You'll Find Here:</h2>
+  <h2 class="lg:w-[50%]">What You'll Find Here:</h2>
   <p>
-    <ul>
+    <ul class="text-lg">
       <li>
         <b>Journaling Tips</b>: Practical advice on how to start and maintain
         a journal, as well as ways to incorporate creative spreads into your
@@ -49,19 +48,6 @@ const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true })
     </ul>
   </p>
 </div>
-<div class="flex flex-col-reverse lg:flex-row">
-<p class="lg:w-[50%]">
-  Whether you're new to journaling, just starting your career, or looking for
-  inspiration to balance both, you're in the right place. I hope my
-  experiences and tips inspire you to reflect on your own journey, set
-  meaningful goals, and embrace new challenges. Feel free to explore the blog,
-  read my posts, and share your thoughts in the comments! Let’s connect
-  through the art of journaling and the business of keeping ourselves
-  together.
-</p>
-<h2 class="justify-end">Join Me on This Journey</h2>
-</div>
-<p>Happy Journaling!</p>
 
 <h2>Latest Posts</h2>
 
