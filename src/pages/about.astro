@@ -4,26 +4,20 @@ import "../styles/global.css";
 
 const pageTitle = "About Me";
 
-const identity = {
-  firstName: "Shannon",
-  country: "United States",
-  occupation: "Software Engineer",
-  hobbies: ["coding", "birdwatching"],
-};
-
-const skills = ["Pretty bullet journal spreads", "Traveling", "Navigating the corporate world", "Photo collections"];
 ---
 <BaseLayout pageTitle={pageTitle}>
-    <p class="font-bold">Here are a few facts about me:</p>
-  <ul class="list-disc">
-    <li>My name is {identity.firstName}.</li>
-    <li>I live in {identity.country} and I work as a {identity.occupation}.</li>
-    {identity.hobbies.length >= 2 &&
-      <li>Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
-    }
-  </ul>
-<p class="font-bold">My current areas of interest are:</p>
-<ul class="list-disc">
-  {skills.map((skill) => <li>{skill}</li>)}
-</ul>
+
+  <div class="flex flex-col-reverse lg:flex-row">
+  <p class="lg:w-[50%]">
+    Whether you're new to journaling, just starting your career, or looking for
+    inspiration to balance both, you're in the right place. I hope my
+    experiences and tips inspire you to reflect on your own journey, set
+    meaningful goals, and embrace new challenges. Feel free to explore the blog,
+    read my posts, and share your thoughts in the comments! Let’s connect
+    through the art of journaling and the business of keeping ourselves
+    together.
+  </p>
+  <h2 class="justify-end">Join Me on This Journey</h2>
+  </div>
+  <p>Happy Journaling!</p>
 </BaseLayout>
