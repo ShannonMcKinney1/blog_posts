@@ -5,6 +5,8 @@ import Greeting from '../components/Greeting.jsx';
 import BlogPost from "../components/BlogPost.astro";
 const pageTitle = "Welcome to My Journal Blog";
 const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
+allPosts.sort((a, b) => Date.parse(b.frontmatter.pubDate) - Date.parse(a.frontmatter.pubDate));
+const slicedPosts = allPosts.slice(0, 3);
 ---
 
 <BaseLayout pageTitle={pageTitle}>
@@ -52,6 +54,6 @@ const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true })
 <h2>Latest Posts</h2>
 
 <ul>
-  {allPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} description={post.frontmatter.description}/>)}
+  {slicedPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} description={post.frontmatter.description}/>)}
 </ul>
 </BaseLayout>
