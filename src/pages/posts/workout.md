@@ -16,7 +16,7 @@ Since exercising is one of new years resolutions that I set up in my last blog p
 
 First, I want to make a plan and put it near the front of the journal. This page will act as my roadmap and I'll come back and reference it often. I am training for something in February so that will be my deadline and my roadmap will be set up on that timeline. This journal is lined and doesn't have the bullet journal dots so this will be a new experience for me. 
 
-![Workout Roadmap](./workout/roadmap.jpg)
+![Workout Roadmap](../../assets/post-images/workout/roadmap.jpg)
 
 Next, I want to start off every month with am exercise tracker. I have a layout that I already like and it forces me to open this journal every day to track what I have been doing which I have found, keeps me engaged and accountable. 
 
@@ -24,7 +24,7 @@ I have a key at the bottom that corresponds a color with a different type of wor
 
 Here is a completed one that I have featured in my post [Best Bullet Journal Layouts to get Things Done](https://blog-posts-dhm.pages.dev/posts/best_bullet_layouts/)
 
-![Themed Tracker](./workout/exercise_tracker.jpg)
+![Themed Tracker](../../assets/post-images/workout/exercise-tracker.jpg)
 
 
 Now we can get into the daily pages of this journal. My idea is after my workout for that day, I can have a dedicated page to write down any important notes like:
@@ -37,19 +37,19 @@ And then I'll have a section on notes in case something cool happened like "I sa
 
 Here are a few sample layouts that I am playing around with. 
 
-![Daily page 1](./workout/daily1.jpg)
+![Daily page 1](../../assets/post-images/workout/daily1.jpg)
 
 
-![Daily page 2](./workout/daily2.jpg)
+![Daily page 2](../../assets/post-images/workout/daily2.jpg)
 
 
-![Daily page 3](./workout/daily3.jpg)
+![Daily page 3](../../assets/post-images/workout/daily3.jpg)
 
 
 Last thing I want to include is a page for meal prep ideas. I have been trying to get in the habit of meal prepping on Sundays for the upcoming week. I find I get busy in the middle of the week and don't want to cook for myself so having meals already prepared has been really helpful. I like big one pot meals that I can use for dinner the night I make it and then have plenty of leftovers to put in the freezer for later. 
 
 Here is the start of my meal prep ideas page: 
 
-![Meal Prep Page](./workout/meal_prep.jpg)
+![Meal Prep Page](../../assets/post-images/workout/meal-prep.jpg)
 
 That's all for now! I hope this post has inspired you to keep a journal for your own hobbies! Happy Journalling in the new year! 

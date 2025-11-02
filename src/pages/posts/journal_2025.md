@@ -50,7 +50,7 @@ From there, branch out with specific goals for each area. For example:
 - Career: Complete a professional development course.
 - Creativity: Draw more frequently.
 
-![Mind Map](./journal_for_2025/mind_map.jpg)
+![Mind Map](../../assets/post-images/journal_for_2025/mind-map.jpg)
 
 ### Step 2: Refine Your Goals
 
@@ -68,7 +68,7 @@ I continued using my color scheme to keep things visually appealing and easy to 
 
 Here is my list:
 
-![Goal List 1](./journal_for_2025/goal_recap.jpg)
+![Goal List 1](../../assets/post-images/journal_for_2025/goal-recap.jpg)
 
 All of mine aren't completely SMART but I kept the principles in mind when creating my list of goals. 
 
@@ -80,7 +80,7 @@ For example, “Learn to play the piano” can feel overwhelming. But if you bre
 
 Here are mine: 
 
-![Goal list 2](./journal_for_2025/focus_goals.jpg)
+![Goal list 2](../../assets/post-images/journal_for_2025/focus-goals.jpg)
 
 ### Step 4 (Optional): Create a Pretty Goal Page
 

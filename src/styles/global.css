@@ -24,8 +24,8 @@ body {
   margin: 0;
   width: 100%;
   display: flex;
-  min-height: 150vh;
-  font-size:large;
+  /* min-height: 150vh; */
+  /* font-size:large; */
 }
 
 h1{

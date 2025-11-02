@@ -1,12 +1,22 @@
 ---
-const platform = "github";
-const username = "withastro";
 import Social from './Social.astro';
+import Logo from "../../public/favicon.svg"
+import { Picture } from 'astro:assets';
 ---
 
-<footer class="flex flex-row flex-wrap justify-center gap-1 py-2 bg-background-secondary-300">
+<footer class="flex flex-row flex-wrap justify-evenly gap-1 py-2 items-center bg-background-secondary-300">
+  <div class="md:max-w-[15%] max-w-[50%]">
+    <a href="/">
+      <Picture
+      alt="logo of the gahanna community chorus"
+      src={Logo}>
+      </Picture>
+    </a>
+  </div>
+
   <p class="px-4">Learn more about my projects on Github!</p>
+  <div>
     <Social platform="linkedin" username="in/mckinney-shannon" icon="mdi:linkedin"/>
     <Social platform="github" username="ShannonMcKinney1" icon="mdi:github" />
-    <Social platform="youtube" username="astrodotbuild" icon="mdi:youtube"/>
+  </div>
 </footer>
