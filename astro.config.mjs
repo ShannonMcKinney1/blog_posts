@@ -8,16 +8,20 @@ import icon from 'astro-icon';
 import react from '@astrojs/react';
 
 import cloudflare from '@astrojs/cloudflare';
+import node from '@astrojs/node';
+
+// Use Node adapter for local dev, Cloudflare for production
+const adapter = process.env.CF_PAGES ? cloudflare({ imageService: 'compile' }) : node({ mode: 'standalone' });
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'static',
-  adapter: cloudflare(),
+  output: 'server',
+  adapter: adapter,
   vite: {
     plugins: [tailwindcss()]
   },
 
   integrations: [icon(), react()],
 
-   site: "https://example.com"
+   site: "https://shansblog.xyz"
 });
