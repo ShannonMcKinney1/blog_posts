@@ -4,16 +4,4 @@ compatibility_date = "2024-01-01"
 # Cloudflare Pages configuration
 pages_build_output_dir = "./dist"
 
-# Environment variables for build
-[vars]
-NODE_VERSION = "20.11.0"
-SUPABASE_ANON_KEY = "sb_publishable_uDg8992ndeyWee-ka-IBXg_f42GjTOc"
-SUPABASE_URL= "https://rrjuqygrgturycixkabn.supabase.co"
-
-# KV namespace for sessions (local development)
-[[kv_namespaces]]
-binding = "SESSION"
-id = "local-session-namespace"
-preview_id = "local-session-namespace"
-
 
