@@ -60,3 +60,8 @@ li{
   font-size: 1.15em;
   background-color: #eae1f4;
 }
+
+input:focus {
+  background-color: #dfd2ee !important;
+  outline: none;
+}

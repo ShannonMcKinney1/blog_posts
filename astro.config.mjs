@@ -5,15 +5,19 @@ import tailwindcss from '@tailwindcss/vite';
 
 import icon from 'astro-icon';
 
-import preact from '@astrojs/preact';
+import react from '@astrojs/react';
+
+import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
+  output: 'server',
+  adapter: node({ mode: 'standalone' }),
   vite: {
     plugins: [tailwindcss()]
   },
 
-  integrations: [icon(), preact()],
+  integrations: [icon(), react()],
 
    site: "https://example.com"
 });

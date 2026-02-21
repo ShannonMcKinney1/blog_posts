@@ -9,18 +9,22 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/preact": "^4.1.0",
-    "@astrojs/rss": "^4.0.12",
+    "@astrojs/node": "^9.5.3",
+    "@astrojs/react": "^4.4.2",
+    "@astrojs/rss": "^4.0.15",
     "@iconify-json/mdi": "^1.2.3",
-    "@tailwindcss/vite": "^4.1.12",
-    "astro": "^5.13.5",
+    "@supabase/supabase-js": "^2.95.3",
+    "@tailwindcss/vite": "^4.1.18",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "astro": "^5.17.2",
     "astro-icon": "^1.1.5",
-    "node": "^25.1.0",
-    "preact": "^10.27.1",
-    "sharp": "^0.34.4",
-    "tailwindcss": "^4.1.12"
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "sharp": "^0.34.5",
+    "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
-    "daisyui": "^5.0.54"
+    "daisyui": "^5.5.18"
   }
 }
