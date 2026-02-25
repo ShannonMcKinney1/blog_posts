@@ -8,6 +8,9 @@ import icon from 'astro-icon';
 import react from '@astrojs/react';
 
 
+// Use Node adapter for local dev, Cloudflare for production
+const adapter = process.env.CF_PAGES ? cloudflare({ imageService: 'compile' }) : node({ mode: 'standalone' });
+
 // https://astro.build/config
 export default defineConfig({
   vite: {
@@ -16,5 +19,5 @@ export default defineConfig({
 
   integrations: [icon(), react()],
 
-   site: "https://example.com"
+   site: "https://shansblog.xyz"
 });
