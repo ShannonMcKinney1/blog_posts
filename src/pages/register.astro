@@ -1,25 +1,8 @@
 ---
 import Layout from "../layouts/BaseLayout.astro";
+import RegisterForm from "../components/RegisterForm.tsx";
 ---
 
 <Layout title="Register">
-  <div class="max-w-md mx-auto p-6">
-    <h1>Register</h1>
-    <p>Already have an account? <a href="/signin" style="color: #8c1a6a; text-decoration: underline;">Sign in</a></p>
-    <form action="/api/auth/register" method="post" class="space-y-4">
-      <div class="form-control w-full">
-        <label class="label" for="email">
-          <span class="label-text">Email</span>
-        </label>
-        <input type="email" name="email" id="email" class="input input-bordered w-full" style="background-color: #eae1f4;" required />
-      </div>
-      <div class="form-control w-full">
-        <label class="label" for="password">
-          <span class="label-text">Password</span>
-        </label>
-        <input type="password" name="password" id="password" class="input input-bordered w-full" style="background-color: #eae1f4;" required />
-      </div>
-      <button type="submit" class="btn w-full" style="background-color: #8c1a6a; color: white; border: none;">Register</button>
-    </form>
-  </div>
+  <RegisterForm client:only="react" />
 </Layout>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { supabase } from "../lib/supabase";
 
 interface Profile {
   username: string;
@@ -22,7 +23,6 @@ interface Comment {
 
 interface Props {
   slug: string;
-  userId: string | null;
 }
 
 function timeAgo(dateStr: string) {
@@ -127,42 +127,67 @@ function CommentItem({
   );
 }
 
-export default function CommentSection({ slug, userId }: Props) {
+export default function CommentSection({ slug }: Props) {
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
   const [newComment, setNewComment] = useState("");
   const [replyingTo, setReplyingTo] = useState<Comment | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch(`/api/comments?slug=${encodeURIComponent(slug)}`)
-      .then((r) => r.json())
-      .then((data) => setComments(data ?? []))
-      .catch(() => setComments([]))
-      .finally(() => setLoading(false));
+    supabase.auth.getUser().then(({ data }) => {
+      setUserId(data.user?.id ?? null);
+    });
+  }, []);
+
+  useEffect(() => {
+    async function fetchComments() {
+      try {
+        const { data } = await supabase
+          .from("comments")
+          .select(`
+            *,
+            profiles(username, avatar_url),
+            comment_likes(user_id)
+          `)
+          .eq("post_slug", slug)
+          .order("created_at", { ascending: true });
+        setComments((data as Comment[]) ?? []);
+      } catch {
+        setComments([]);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchComments();
   }, [slug]);
 
   const handleSubmit = async (e: React.SyntheticEvent, parentId?: string) => {
     e.preventDefault();
-    if (!newComment.trim()) return;
+    if (!newComment.trim() || !userId) return;
     setSubmitting(true);
     setError("");
 
     try {
-      const res = await fetch("/api/comments", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug, content: newComment, parent_id: parentId ?? null }),
-      });
+      const { data, error: insertError } = await supabase
+        .from("comments")
+        .insert({
+          post_slug: slug,
+          user_id: userId,
+          content: newComment.trim(),
+          parent_id: parentId || null,
+        })
+        .select(`*, profiles(username, avatar_url), comment_likes(user_id)`)
+        .single();
 
-      if (!res.ok) {
-        setError(await res.text());
+      if (insertError) {
+        setError(insertError.message);
         return;
       }
 
-      const created: Comment = await res.json();
-      setComments((prev) => [...prev, created]);
+      setComments((prev) => [...prev, data as Comment]);
       setNewComment("");
       setReplyingTo(null);
     } finally {
@@ -172,18 +197,32 @@ export default function CommentSection({ slug, userId }: Props) {
 
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this comment?")) return;
-    const res = await fetch(`/api/comments/${id}`, { method: "DELETE" });
-    if (res.ok) {
+    const { error: deleteError } = await supabase
+      .from("comments")
+      .delete()
+      .eq("id", id);
+    if (!deleteError) {
       setComments((prev) => prev.filter((c) => c.id !== id && c.parent_id !== id));
     }
   };
 
   const handleLike = async (id: string) => {
     if (!userId) return;
-    const res = await fetch(`/api/comments/${id}`, { method: "POST" });
-    if (!res.ok) return;
-    const { liked } = await res.json();
 
+    const { data: existingLike } = await supabase
+      .from("comment_likes")
+      .select("id")
+      .eq("comment_id", id)
+      .eq("user_id", userId)
+      .single();
+
+    if (existingLike) {
+      await supabase.from("comment_likes").delete().eq("id", existingLike.id);
+    } else {
+      await supabase.from("comment_likes").insert({ comment_id: id, user_id: userId });
+    }
+
+    const liked = !existingLike;
     setComments((prev) =>
       prev.map((c) => {
         if (c.id !== id) return c;

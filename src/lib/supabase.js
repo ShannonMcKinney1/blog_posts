@@ -1,13 +1,13 @@
 import { createClient } from "@supabase/supabase-js";
 
 export const supabase = createClient(
-  import.meta.env.SUPABASE_URL,
-  import.meta.env.SUPABASE_ANON_KEY,
+  import.meta.env.PUBLIC_SUPABASE_URL,
+  import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
   {
     auth: {
-      autoRefreshToken: false,
-      detectSessionInUrl: false,
-      persistSession: false,  // also change this to false for server-side
+      autoRefreshToken: true,
+      detectSessionInUrl: true,
+      persistSession: true,
     },
   },
 );
