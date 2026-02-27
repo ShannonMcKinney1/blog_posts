@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
+import Auth from "./Auth";
 
 interface Profile {
   username: string;
@@ -265,12 +266,10 @@ export default function CommentSection({ slug }: Props) {
           </button>
         </form>
       ) : (
-        <p className="mb-6 text-sm text-gray-500">
-          <a href="/signin" className="hover:underline" style={{ color: '#8c1a6a' }}>
-            Sign in
-          </a>{" "}
-          to leave a comment.
-        </p>
+        <div className="mb-6">
+          <p className="text-sm text-gray-500 mb-2">Sign in to leave a comment.</p>
+          <Auth />
+        </div>
       )}
 
       {replyingTo && (

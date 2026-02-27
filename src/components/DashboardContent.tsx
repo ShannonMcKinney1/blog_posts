@@ -1,27 +1,38 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
+import Auth from "./Auth";
 
 export default function DashboardContent() {
   const [email, setEmail] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
-      if (!data.user) {
-        window.location.href = "/signin";
-      } else {
+      if (data.user) {
         setEmail(data.user.email ?? null);
-        setLoading(false);
+        setAuthenticated(true);
       }
+      setLoading(false);
     });
   }, []);
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
-    window.location.href = "/signin";
+    window.location.href = "/";
   };
 
   if (loading) return null;
+
+  if (!authenticated) {
+    return (
+      <div className="max-w-md mx-auto p-6">
+        <h1>Sign in</h1>
+        <p className="mb-4">Sign in with Google to access your dashboard.</p>
+        <Auth redirectTo={`${window.location.origin}/dashboard`} />
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-2xl mx-auto p-6">
