@@ -5,7 +5,7 @@ author: Shannon McKinney
 description: "You may be wondering about the trend of bullet journaling and whether it's something worth trying. Well, I can tell you that it has transformed my life for the better. And the best part? You don’t need to spend hours perfecting every page (despite what you might see online). Let me share my journey and offer some inspiration to help you start your own bullet journal."
 image:
     url: "./all_time_fav_spreads/cocktail.jpg"
-    alt: "The word astro against an illustration of planets and stars."
+    alt: "Illustrated cocktail glasses drawn in a bullet journal spread."
 pubDate: 2024-12-04
 tags: ["BUJO", ]
 ---

@@ -5,7 +5,7 @@ author: Shannon McKinney
 description: "I’m back with more of my favorite spreads from the past year! With the new year fast approaching, I’ve been reflecting on the past year, and part of that reflection has been looking through the pages of my journal. Here are some of my standout pages that I’m especially proud of. I hope they inspire you as you plan for your own journaling in the upcoming year!"
 image:
     url: "./all_time_fav_spreads/cocktail.jpg"
-    alt: "The word astro against an illustration of planets and stars."
+    alt: "A butterfly-themed April monthly spread in a bullet journal with colored pencil wings."
 pubDate: 2024-12-23
 tags: ["BUJO", "Page Ideas", "Goal Setting"]
 ---

@@ -1,11 +1,11 @@
 ---
 layout: ../../layouts/MarkdownPostLayout.astro
-title: "My Book Review: 50 Ways to Excel in You First Job (and in Life)"
+title: "My Book Review: 50 Ways to Excel in Your First Job (and in Life)"
 author: Shannon McKinney
 description: "I just finished reading 50 Ways to Excel in your First Job (And in Life) by Antonio Neves and wanted to give a review and summary for the most memorable points (in my opinion). "
 image:
     url: "../assets/cocktail.jpg"
-    alt: "The word astro against an illustration of planets and stars."
+    alt: "Illustrated cocktail glasses drawn in a bullet journal spread."
 pubDate: 2025-02-02
 tags: ["Career", "Book Review"]
 ---
@@ -29,19 +29,19 @@ This point was all about visualizing your dreams and manifesting positive outcom
 I liked the notion of a "CEO Mindset" because when you think of CEOs, you think always seeking out new opportunities, always looking to improve and always putting themselves and their company first. If you apply this to your own life, you can make strides in your work and relationships in your career. 
 
 ## "Your Personal Brand is..."
-Recently, my leadership development program has been stressing the importance of a personal brand. I like to think about it like this: Imagine you're a youtuber and you share your art. Well, you need a name people recognize and can look up to find your channel, you need a logo or design you can sell on stickers and put in the corner of your videos, you need a phrase that you say that people can hear and think of you. All of this goes into your brand. And the same is true for professionals in other fields too. You need to be able to look yourself up online and find information that represents you and makes you different than everyone else out there. You need to be able to stick in peoples minds so when an opportunity arises, they think of you first. 
+Recently, my leadership development program has been stressing the importance of a personal brand. I like to think about it like this: Imagine you're a youtuber and you share your art. Well, you need a name people recognize and can look up to find your channel, you need a logo or design you can sell on stickers and put in the corner of your videos, you need a phrase that you say that people can hear and think of you. All of this goes into your brand. And the same is true for professionals in other fields too. You need to be able to look yourself up online and find information that represents you and makes you different than everyone else out there. You need to be able to stick in people's minds so when an opportunity arises, they think of you first. 
 
-## "Its Not Who You Know" 
-Its who knows you. This point ties into the last one well. You need people to be your sponsor and advocate for you and your goals. But they first need to know you. Be your own PR department and represent yourself and your brand. 
+## "It's Not Who You Know"
+It's who knows you. This point ties into the last one well. You need people to be your sponsor and advocate for you and your goals. But they first need to know you. Be your own PR department and represent yourself and your brand. 
 
 ## "The Most Powerful Meeting You Can Have" 
-I thought this point was some of the best advice someone could have given me. Here, he talked about setting up "informational meetings" with people you can learn from and to ask them questions. I tried this recently with someone who worked on a really interesting project in my company and teh meeting was a huge success. I learned a lot about the project and the company's goals for it but more importantly, I increased my networking circle. Now that I've meet with this person, they know me and know my goals and I now have a relationship with them. I would highly recommend trying this out! 
+I thought this point was some of the best advice someone could have given me. Here, he talked about setting up "informational meetings" with people you can learn from and to ask them questions. I tried this recently with someone who worked on a really interesting project in my company and the meeting was a huge success. I learned a lot about the project and the company's goals for it but more importantly, I increased my networking circle. Now that I've meet with this person, they know me and know my goals and I now have a relationship with them. I would highly recommend trying this out! 
 
-## "How to Ge Vacation Time" 
+## "How to Get Vacation Time"
 This point really resonated with me not because I want more vacation time (although who doesn't) but because this principle could be used in a variety of different cases. For example, if your team decided on the approach to use for the new project. Instead of informing higher ups like "Can we use this approach for the new project?" say: "We plan to use this approach for the new project". It makes it sound like the decision is already made and it makes it hard for them to say no and change the decision but leaves space for a conversation as to why your team made this decision. 
 
 ## "This is How We've Always Done it" 
-This is a killer statement to improvement. Just because you've always done it a certain way, doesn't mean a change couldn't improve on teh process. This was a good reminder to always look for statements like this in the workplace and to come up with new and innovative solutions. 
+This is a killer statement to improvement. Just because you've always done it a certain way, doesn't mean a change couldn't improve on the process. This was a good reminder to always look for statements like this in the workplace and to come up with new and innovative solutions. 
 
 ## "Have an Agenda" 
 Having just had my performance review, this point stuck out to me. Antonio says to have an agenda in these types of meetings and find ways to add in things that your manager must know about you. I likened this to how politicians answer questions. They always bring the question back to their main point and the point that makes them the best candidate.

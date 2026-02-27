@@ -5,7 +5,7 @@ import CommentSection from "../components/CommentSection.tsx";
 
 const slug = Astro.url.pathname.replace(/^\/|\/$/g, "");
 ---
-<BaseLayout>
+<BaseLayout pageTitle={frontmatter.title} description={frontmatter.description}>
 <body>
   <div class="bg-background-secondary-300">
     <h1>{frontmatter.title}</h1>

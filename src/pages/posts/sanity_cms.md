@@ -2,10 +2,10 @@
 layout: ../../layouts/MarkdownPostLayout.astro
 title: "How I used Sanity CMS to Spin Up a Blog for my Brother"
 author: Shannon McKinney
-description: "My brother needed a blog so I made him one using Astro with a Sanity CMS and it worked better than I could've expected"
+description: "My brother needed a blog so I made him one using Astro with a Sanity CMS and it worked better than I could've expected."
 image:
     url: "../assets/cocktail.jpg"
-    alt: "The word astro against an illustration of planets and stars."
+    alt: "Illustrated cocktail glasses drawn in a bullet journal spread."
 pubDate: 2025-10-15
 tags: ["Career", "Project"]
 ---

@@ -9,7 +9,7 @@ allPosts.sort((a, b) => Date.parse(b.frontmatter.pubDate) - Date.parse(a.frontma
 const slicedPosts = allPosts.slice(0, 3);
 ---
 
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout pageTitle={pageTitle} description="A personal blog about bullet journaling, creative spreads, goal setting, and navigating early career life. Tips, layouts, and inspiration for your journaling journey.">
   <div class="flex flex-col text-lg">
     <p>
     Hello, and welcome to my journal blog—a place where I share my personal
@@ -44,7 +44,7 @@ const slicedPosts = allPosts.slice(0, 3);
         effective bullet journal layouts for tracking habits, moods, and more.
       </li>
       <li>
-        <b>BUJO Layout Inspriations</b>: Lists of my favorite pages I've done
+        <b>BUJO Layout Inspirations</b>: Lists of my favorite pages I've done
         to date to inspire you!
       </li>
     </ul>

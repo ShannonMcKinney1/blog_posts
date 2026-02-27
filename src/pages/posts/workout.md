@@ -5,7 +5,7 @@ author: Shannon McKinney
 description: "As I continue to reflect on the past year and plan for the year to come, I find myself looking back at old journals and finding the pages I liked and that worked for me. One idea that I liked in the past was setting up a workout journal. This journal is specifically for my hobby: working out. This keeps it separate from my daily journal and leaves me with more space in my daily journal so I don't have to replace it so often because I ran out of pages."
 image:
     url: "./all_time_fav_spreads/cocktail.jpg"
-    alt: "The word astro against an illustration of planets and stars."
+    alt: "Illustrated cocktail glasses drawn in a bullet journal spread."
 pubDate: 2025-01-15
 tags: ["BUJO", "Lifestyle", "Goal Setting", "Page Ideas"]
 ---
@@ -18,7 +18,7 @@ First, I want to make a plan and put it near the front of the journal. This page
 
 ![Workout Roadmap](../../assets/post-images/workout/roadmap.jpg)
 
-Next, I want to start off every month with am exercise tracker. I have a layout that I already like and it forces me to open this journal every day to track what I have been doing which I have found, keeps me engaged and accountable. 
+Next, I want to start off every month with an exercise tracker. I have a layout that I already like and it forces me to open this journal every day to track what I have been doing which I have found, keeps me engaged and accountable. 
 
 I have a key at the bottom that corresponds a color with a different type of workout. Then I will color in the box for each day. That way, I can quickly glance at this page and get a general idea of my progress and if I have been sticking to my plan. 
 
@@ -52,4 +52,4 @@ Here is the start of my meal prep ideas page:
 
 ![Meal Prep Page](../../assets/post-images/workout/meal-prep.jpg)
 
-That's all for now! I hope this post has inspired you to keep a journal for your own hobbies! Happy Journalling in the new year! 
+That's all for now! I hope this post has inspired you to keep a journal for your own hobbies! Happy Journaling in the new year! 

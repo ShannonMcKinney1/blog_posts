@@ -5,7 +5,7 @@ author: Shannon McKinney
 description: "I absolutely love when I have the time to really put effort into a page. It’s the perfect opportunity to use my fancy pens and stickers. Usually, I’ll practice the design on another page first to make sure everything looks just right. Here’s a collection of my favorite pages that I’ve created so far."
 image:
     url: "./all_time_fav_spreads/scotland.jpg"
-    alt: "The word astro against an illustration of planets and stars."
+    alt: "A hand-drawn map of Scotland with trip itinerary and city highlights in a bullet journal."
 pubDate: 2024-12-09
 tags: ["BUJO", "Page Ideas"]
 ---

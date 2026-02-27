@@ -2,13 +2,13 @@
 import BaseLayout from "../layouts/BaseLayout.astro"
 import BlogPost from '../components/BlogPost.astro';
 import "../styles/global.css"
-const pageTitle = "Latest Posts";
+const pageTitle = "Latest Posts | Shannon's Journal Blog";
 const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
 allPosts.sort((a, b) => Date.parse(b.frontmatter.pubDate) - Date.parse(a.frontmatter.pubDate));
 export const prerender = true;
 ---
 
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout pageTitle={pageTitle} description="Browse all posts on Shannon's Journal Blog — covering bullet journal layouts, page ideas, goal setting, and career tips.">
     <ul>
       {allPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} description={post.frontmatter.description}/>)}
     </ul>

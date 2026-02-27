@@ -5,7 +5,7 @@ author: Shannon McKinney
 description: "Trust me, I’ve been there. Scrolling through endless Top 10 lists for bullet journal layouts because you're either not satisfied with your current setup or you’re looking for something fresh. Personally, I believe a layout should be tailored to how you want to organize your life. But sometimes, seeing a few examples or getting some inspiration can help you find the perfect style. So, here are my favorite layouts that I’ve used so far."
 image:
     url: "./all_time_fav_spreads/cocktail.jpg"
-    alt: "The word astro against an illustration of planets and stars."
+    alt: "A themed monthly bullet journal spread with colorful habit trackers and an overview page."
 pubDate: 2024-12-12
 tags: ["BUJO", "Page Ideas", "BUJO Spreads"]
 ---

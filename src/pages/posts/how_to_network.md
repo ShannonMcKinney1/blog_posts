@@ -5,7 +5,7 @@ author: Shannon McKinney
 description: "Now that I am in the real world and have started my career, networking is going to be more important than ever! I did some research and came up with a list of the 14 best tips on preparing for and succeeding at networking events. This is a list I will be coming back to next time there is an opportunity for me to meet new people in my career field."
 image:
     url: "./all_time_fav_spreads/cocktail.jpg"
-    alt: "The word astro against an illustration of planets and stars."
+    alt: "Illustrated cocktail glasses drawn in a bullet journal spread."
 pubDate: 2024-12-28
 tags: ["Career", "Networking"]
 ---

@@ -2,10 +2,10 @@
 title: "How to Create an Effective Goal-Setting Layout for the New Year"
 layout: ../../layouts/MarkdownPostLayout.astro
 author: Shannon McKinney
-description: "Its that time of year again! Time to reflect on the past and make plans for the future! I want to go through my 2025 journaling techniques for reflecting and what I am doing to prepare for the new year."
+description: "It's that time of year again! Time to reflect on the past and make plans for the future! I want to go through my 2025 journaling techniques for reflecting and what I am doing to prepare for the new year."
 image:
     url: "./all_time_fav_spreads/cocktail.jpg"
-    alt: "The word astro against an illustration of planets and stars."
+    alt: "A color-coded mind map of 2025 goals organized by life categories in a bullet journal."
 pubDate: 2024-12-26
 tags: ["BUJO", "Goal Setting"]
 ---
