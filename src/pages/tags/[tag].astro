@@ -1,28 +1,50 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogPost from '../../components/BlogPost.astro';
+import { supabase } from '../../lib/supabase';
 
 export async function getStaticPaths() {
-  const allPosts = Object.values(import.meta.glob('../posts/*.md', { eager: true }));
+  const { data: tags } = await supabase
+    .from('tags')
+    .select('id, name, slug');
 
-  const uniqueTags = [...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat())];
+  const paths = await Promise.all(
+    (tags ?? []).map(async (tag) => {
+      const { data: posts } = await supabase
+        .from('posts')
+        .select(`
+          id, slug, title, description, published_at,
+          post_tags!inner (tag_id)
+        `)
+        .eq('published', true)
+        .eq('post_tags.tag_id', tag.id)
+        .order('published_at', { ascending: false });
 
-  return uniqueTags.map((tag) => {
-    const filteredPosts = allPosts.filter((post: any) => post.frontmatter.tags.includes(tag));
-    return {
-      params: { tag },
-      props: { posts: filteredPosts },
-    };
-  });
+      return {
+        params: { tag: tag.slug },
+        props: { tagName: tag.name, posts: posts ?? [] },
+      };
+    })
+  );
+
+  return paths;
 }
 
 const { tag } = Astro.params;
-const { posts } = Astro.props;
+const { tagName, posts } = Astro.props;
 ---
-<BaseLayout pageTitle={`${tag} Posts | Shannon's Journal Blog`} description={`Browse all posts tagged with ${tag} on Shannon's Journal Blog.`}>
-  <p>Posts tagged with {tag}</p>
+<BaseLayout
+  pageTitle={`${tagName} Posts | Shannon's Journal Blog`}
+  description={`Browse all posts tagged with ${tagName} on Shannon's Journal Blog.`}
+>
+  <p>Posts tagged with <strong>{tagName}</strong></p>
   <ul>
-    {posts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} 
-      description={post.frontmatter.description}/>)}
+    {posts.map((post: any) => (
+      <BlogPost
+        url={`/blog/${post.slug}`}
+        title={post.title}
+        description={post.description}
+      />
+    ))}
   </ul>
 </BaseLayout>

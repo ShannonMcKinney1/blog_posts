@@ -1,0 +1,62 @@
+---
+import { marked } from "marked";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CommentSection from "../../components/CommentSection.tsx";
+import { supabase } from "../../lib/supabase";
+
+export async function getStaticPaths() {
+  const { data: posts } = await supabase
+    .from("posts")
+    .select(`
+      *,
+      post_tags (
+        tags (
+          id,
+          name,
+          slug
+        )
+      )
+    `)
+    .eq("published", true);
+
+  return (posts ?? []).map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const tags = post.post_tags?.map((pt: any) => pt.tags).filter(Boolean) ?? [];
+const htmlContent = marked.parse(post.content ?? "") as string;
+---
+
+<BaseLayout pageTitle={post.title} description={post.description}>
+  <article>
+    <div class="bg-background-secondary-300">
+      {post.cover_image && (
+        <img
+          src={post.cover_image}
+          alt={post.title}
+          class="w-full max-h-[400px] object-cover rounded-lg mb-4"
+        />
+      )}
+      <h1>{post.title}</h1>
+      <p><em>{post.description}</em></p>
+      <p>Published on {new Date(post.published_at).toLocaleDateString()}</p>
+    </div>
+
+    <div set:html={htmlContent} />
+
+    {tags.length > 0 && (
+      <div class="tags">
+        {tags.map((tag: any) => (
+          <p class="tag">
+            <a href={`/tags/${tag.slug}`}>{tag.name}</a>
+          </p>
+        ))}
+      </div>
+    )}
+
+    <CommentSection client:load slug={`blog/${post.slug}`} />
+  </article>
+</BaseLayout>
