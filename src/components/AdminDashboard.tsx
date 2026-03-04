@@ -339,6 +339,10 @@ function PostEditor({ post, tags, userId, onSave, onBack, onTagCreated }: PostEd
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [slugManuallySet, setSlugManuallySet] = useState(!!post);
+  const [postImages, setPostImages] = useState<{ name: string; url: string }[]>([]);
+  const [imagesLoading, setImagesLoading] = useState(false);
+  const [uploadLoading, setUploadLoading] = useState(false);
+  const [imageMsg, setImageMsg] = useState<{ text: string; isError: boolean } | null>(null);
 
   useEffect(() => {
     if (!post) return;
@@ -350,6 +354,80 @@ function PostEditor({ post, tags, userId, onSave, onBack, onTagCreated }: PostEd
         setSelectedTagIds((data ?? []).map((pt) => pt.tag_id));
       });
   }, [post]);
+
+  useEffect(() => {
+    if (post?.slug) fetchImages(post.slug);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const fetchImages = async (targetSlug: string = slug) => {
+    if (!targetSlug) return;
+    setImagesLoading(true);
+    const { data } = await supabase.storage.from("blog-post-images").list(targetSlug);
+    const images = (data ?? [])
+      .filter((f) => f.name !== ".emptyFolderPlaceholder")
+      .map((f) => {
+        const { data: urlData } = supabase.storage
+          .from("blog-post-images")
+          .getPublicUrl(`${targetSlug}/${f.name}`);
+        return { name: f.name, url: urlData.publicUrl };
+      });
+    setPostImages(images);
+    setImagesLoading(false);
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files ?? []);
+    if (!files.length) return;
+    const ALLOWED = ["image/jpeg", "image/jpg", "image/png", "image/gif", "image/webp"];
+    const MAX_BYTES = 5 * 1024 * 1024;
+    for (const file of files) {
+      if (!ALLOWED.includes(file.type)) {
+        setImageMsg({ text: `"${file.name}" is not a supported image type (jpeg, png, gif, webp).`, isError: true });
+        return;
+      }
+      if (file.size > MAX_BYTES) {
+        setImageMsg({ text: `"${file.name}" exceeds the 5MB size limit.`, isError: true });
+        return;
+      }
+    }
+    setUploadLoading(true);
+    setImageMsg(null);
+    const results = await Promise.all(
+      files.map((file) =>
+        supabase.storage.from("blog-post-images").upload(`${slug}/${file.name}`, file, { upsert: false })
+      )
+    );
+    const failed = results.filter((r) => r.error);
+    if (failed.length) {
+      const firstError = failed[0].error!.message;
+      setImageMsg({ text: `${failed.length} file(s) failed: ${firstError}`, isError: true });
+    } else {
+      setImageMsg({ text: `${files.length} image(s) uploaded successfully.`, isError: false });
+    }
+    await fetchImages(slug);
+    setUploadLoading(false);
+    e.target.value = "";
+  };
+
+  const handleCopyMarkdown = async (name: string, url: string) => {
+    const alt = name.replace(/\.[^.]+$/, "");
+    await navigator.clipboard.writeText(`![${alt}](${url})`);
+    setImageMsg({ text: `Copied: ![${alt}](...)`, isError: false });
+  };
+
+  const handleDeleteImage = async (name: string) => {
+    if (!confirm(`Delete "${name}"?`)) return;
+    const { error: delError } = await supabase.storage
+      .from("blog-post-images")
+      .remove([`${slug}/${name}`]);
+    if (delError) {
+      setImageMsg({ text: `Failed to delete "${name}": ${delError.message}`, isError: true });
+      return;
+    }
+    setPostImages((prev) => prev.filter((img) => img.name !== name));
+    setImageMsg({ text: `"${name}" deleted.`, isError: false });
+  };
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
@@ -569,6 +647,126 @@ function PostEditor({ post, tags, userId, onSave, onBack, onTagCreated }: PostEd
               (e.target as HTMLImageElement).style.display = "none";
             }}
           />
+        )}
+      </div>
+
+      {/* Post Images */}
+      <div style={fieldStyle}>
+        <label style={labelStyle}>Post Images</label>
+        {!slug ? (
+          <p style={{ margin: 0, padding: "6px 0", fontSize: "0.85rem", color: "#888" }}>
+            Save post first to upload images.
+          </p>
+        ) : (
+          <>
+            {imageMsg && (
+              <div
+                style={{
+                  padding: "8px 12px",
+                  borderRadius: 6,
+                  marginBottom: 10,
+                  fontSize: "0.85rem",
+                  backgroundColor: imageMsg.isError ? "#fde8e8" : "#d1ebc1",
+                  color: imageMsg.isError ? "#c0392b" : "#2d6a2d",
+                  border: `1px solid ${imageMsg.isError ? "#f5c6c6" : "#a8d8a0"}`,
+                }}
+              >
+                {imageMsg.text}
+              </div>
+            )}
+
+            <div style={{ marginBottom: 12 }}>
+              <label
+                style={{
+                  display: "inline-block",
+                  backgroundColor: uploadLoading ? "#d5c3e9" : "#d3acd7",
+                  padding: "7px 16px",
+                  borderRadius: 6,
+                  cursor: uploadLoading ? "not-allowed" : "pointer",
+                  fontSize: "0.9rem",
+                  fontWeight: 600,
+                }}
+              >
+                {uploadLoading ? "Uploading..." : "Upload Images"}
+                <input
+                  type="file"
+                  multiple
+                  accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+                  onChange={handleImageUpload}
+                  disabled={uploadLoading}
+                  style={{ display: "none" }}
+                />
+              </label>
+              <span style={{ marginLeft: 10, fontSize: "0.75rem", color: "#888" }}>
+                jpeg, png, gif, webp · max 5MB each
+              </span>
+            </div>
+
+            {imagesLoading ? (
+              <p style={{ margin: 0, padding: 0, fontSize: "0.85rem", color: "#888" }}>Loading images...</p>
+            ) : postImages.length === 0 ? (
+              <p style={{ margin: 0, padding: 0, fontSize: "0.85rem", color: "#888" }}>No images uploaded yet.</p>
+            ) : (
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                {postImages.map((img) => (
+                  <div
+                    key={img.name}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 12,
+                      padding: "10px 12px",
+                      backgroundColor: "#f5f0fb",
+                      borderRadius: 8,
+                      border: "1px solid #d3acd7",
+                    }}
+                  >
+                    <img
+                      src={img.url}
+                      alt={img.name}
+                      style={{ width: 80, height: 56, objectFit: "cover", borderRadius: 4, flexShrink: 0 }}
+                    />
+                    <span style={{ flex: 1, fontSize: "0.82rem", wordBreak: "break-all", padding: 0 }}>
+                      {img.name}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => handleCopyMarkdown(img.name, img.url)}
+                      style={{
+                        background: "none",
+                        border: "1px solid #d3acd7",
+                        padding: "4px 10px",
+                        borderRadius: 4,
+                        cursor: "pointer",
+                        fontSize: "0.78rem",
+                        whiteSpace: "nowrap",
+                        flexShrink: 0,
+                      }}
+                    >
+                      Copy Markdown
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteImage(img.name)}
+                      style={{
+                        background: "none",
+                        border: "1px solid #e5a0a0",
+                        color: "#c0392b",
+                        padding: "4px 10px",
+                        borderRadius: 4,
+                        cursor: "pointer",
+                        fontSize: "0.78rem",
+                        whiteSpace: "nowrap",
+                        flexShrink: 0,
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
         )}
       </div>
 
