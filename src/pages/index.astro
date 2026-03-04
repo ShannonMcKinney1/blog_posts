@@ -1,12 +1,15 @@
 ---
 import "../styles/global.css";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Greeting from '../components/Greeting.jsx';
 import BlogPost from "../components/BlogPost.astro";
+import { supabase } from "../lib/supabase";
 const pageTitle = "Welcome to My Journal Blog";
-const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
-allPosts.sort((a, b) => Date.parse(b.frontmatter.pubDate) - Date.parse(a.frontmatter.pubDate));
-const slicedPosts = allPosts.slice(0, 3);
+const { data: latestPosts } = await supabase
+  .from("posts")
+  .select("slug, title, description")
+  .eq("published", true)
+  .order("published_at", { ascending: false })
+  .limit(3);
 ---
 
 <BaseLayout pageTitle={pageTitle} description="A personal blog about bullet journaling, creative spreads, goal setting, and navigating early career life. Tips, layouts, and inspiration for your journaling journey.">
@@ -54,6 +57,8 @@ const slicedPosts = allPosts.slice(0, 3);
 <h2>Latest Posts</h2>
 
 <ul>
-  {slicedPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} description={post.frontmatter.description}/>)}
+  {(latestPosts ?? []).map((post) => (
+    <BlogPost url={`/blog/${post.slug}`} title={post.title} description={post.description} />
+  ))}
 </ul>
 </BaseLayout>

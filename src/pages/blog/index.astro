@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogPost from "../../components/BlogPost.astro";
+import { supabase } from "../../lib/supabase";
+
+const pageTitle = "Latest Posts | Shannon's Journal Blog";
+
+const { data: posts } = await supabase
+  .from("posts")
+  .select("id, slug, title, description, published_at, cover_image")
+  .eq("published", true)
+  .order("published_at", { ascending: false });
+---
+
+<BaseLayout
+  pageTitle={pageTitle}
+  description="Browse all posts on Shannon's Journal Blog — covering bullet journal layouts, page ideas, goal setting, and career tips."
+>
+  <ul>
+    {(posts ?? []).map((post) => (
+      <BlogPost
+        url={`/blog/${post.slug}`}
+        title={post.title}
+        description={post.description}
+      />
+    ))}
+  </ul>
+</BaseLayout>

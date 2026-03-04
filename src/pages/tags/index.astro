@@ -1,14 +1,18 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-const allPosts = Object.values(import.meta.glob('../posts/*.md', { eager: true }));
-const tags = [...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat())];
+import { supabase } from '../../lib/supabase';
+
 const pageTitle = "Browse by Tag | Shannon's Journal Blog";
 
+const { data: tags } = await supabase
+  .from('tags')
+  .select('id, name, slug')
+  .order('name');
 ---
 <BaseLayout pageTitle={pageTitle} description="Browse all topics covered on Shannon's Journal Blog, including bullet journaling, goal setting, career tips, and lifestyle.">
-    <div class="tags"><u>
-        {tags.map((tag) => (
-          <p class="tag"><a href={`/tags/${tag}`}>{tag}</a></p>
-        ))}</u>
-      </div>
-</BaseLayout>   
+  <div class="tags">
+    {(tags ?? []).map((tag) => (
+      <p class="tag"><a href={`/tags/${tag.slug}`}>{tag.name}</a></p>
+    ))}
+  </div>
+</BaseLayout>

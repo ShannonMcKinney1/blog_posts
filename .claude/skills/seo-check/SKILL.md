@@ -8,7 +8,7 @@ description: Check for SEO issues on a website and provide recommendations for i
 - Set the pageTitle variable on each page to something that is unique to the page, clear and concise, and accurately describes the contents of the page.
 - Ensure each page has a meta description tag, which is typically a succinct, one- or two-sentence summary of the page. A good meta description is short, unique to one particular page, and includes the most relevant points of the page.
 - Add descriptive alt text to the images on the website. Alt text is a short, but descriptive piece of text that explains the relationship between the image and your content. 
-- Ensure descriptions end with a period.
+- Ensure descriptions end with some type of punctuation. 
 - Check blog post content for misspellings and grammar issues.
 
 
