@@ -1,0 +1,47 @@
+---
+interface Props {
+  content: string;
+}
+
+const { content } = Astro.props;
+
+// Extract headers from markdown content
+// Matches lines that start with #, ##, ###, etc
+const headerRegex = /^(#{1,6})\s+(.+)$/gm;
+const headers: Array<{ level: number; text: string; id: string }> = [];
+let match;
+
+// Extract all headers
+while ((match = headerRegex.exec(content)) !== null) {
+  const level = match[1].length;
+  const text = match[2].trim();
+  // Create an ID from the header text (slug format)
+  const id = text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  
+  // Only include h2 and h3 in TOC
+  if (level >= 2 && level <= 3) {
+    headers.push({ level, text, id });
+  }
+}
+---
+
+{headers.length > 0 && (
+  <nav class="hidden md:block fixed left-0 xl:left-10 h-auto md:w-[150px] lg:w-[200px] overflow-y-visible  pl-2 flex flex-col">
+    <div class="text-xs lg:text-sm font-bold mb-4 text-center bg-background-100 border-2 border-accent-pink rounded-lg">Table of Contents</div>
+    <ul class="space-y-2 text-xs lg:text-sm px-2 lg:px-4 bg-background-100 border-2 border-accent-pink rounded-lg">
+      {headers.slice(0, 7).map((header) => (
+        <li class={header.level === 2 ? "font-semibold" : "text-gray-600 text-center"}>
+          <a
+            href={`#${header.id}`}
+            class="hover:text-purple-600 transition-colors"
+          >
+            {header.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}
