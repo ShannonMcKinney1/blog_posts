@@ -2,6 +2,7 @@
 import { marked } from "marked";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CommentSection from "../../components/CommentSection.tsx";
+import TableOfContents from "../../components/TableOfContents.astro";
 import { supabase } from "../../lib/supabase";
 
 export async function getStaticPaths() {
@@ -27,10 +28,45 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const tags = post.post_tags?.map((pt: any) => pt.tags).filter(Boolean) ?? [];
-const htmlContent = marked.parse(post.content ?? "") as string;
+
+// Extract headers from markdown
+const headerRegex = /^(#{1,6})\s+(.+)$/gm;
+const headers: Array<{ level: number; text: string; id: string }> = [];
+let match;
+const headerMap = new Map<string, string>();
+
+while ((match = headerRegex.exec(post.content ?? "")) !== null) {
+  const level = match[1].length;
+  const text = match[2].trim();
+  const id = text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  
+  if (level >= 2 && level <= 3) {
+    headers.push({ level, text, id });
+    headerMap.set(text, id);
+  }
+}
+
+// Use marked hook to add IDs to headers during rendering
+marked.use({
+  renderer: {
+    heading({ text, depth }) {
+      if (depth >= 2 && depth <= 3) {
+        const id = headerMap.get(text) || text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+        return `<h${depth} id="${id}">${text}</h${depth}>\n`;
+      }
+      return `<h${depth}>${text}</h${depth}>\n`;
+    }
+  }
+});
+
+let htmlContent = marked.parse(post.content ?? "") as string;
 ---
 
 <BaseLayout pageTitle={post.title} description={post.description}>
+  {headers.length > 0 && <TableOfContents content={post.content ?? ""} />}
   <article>
     <div class="bg-background-secondary-300">
       {post.cover_image && (

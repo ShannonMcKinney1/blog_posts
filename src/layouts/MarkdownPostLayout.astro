@@ -7,20 +7,22 @@ const slug = Astro.url.pathname.replace(/^\/|\/$/g, "");
 ---
 <BaseLayout pageTitle={frontmatter.title} description={frontmatter.description}>
 <body>
-  <div class="bg-background-secondary-300">
-    <h1>{frontmatter.title}</h1>
-    <div class="flex flex-row">
-      <p class="w-[50%]">Published on {frontmatter.pubDate.toString().slice(0,10)}</p>
-      <p class="w-[50%]">Written by: {frontmatter.author}</p>
+  <div class="md:ml-48">
+    <div class="bg-background-secondary-300">
+      <h1>{frontmatter.title}</h1>
+      <div class="flex flex-row">
+        <p class="w-[50%]">Published on {frontmatter.pubDate.toString().slice(0,10)}</p>
+        <p class="w-[50%]">Written by: {frontmatter.author}</p>
+      </div>
+      <p><em>{frontmatter.description}</em></p>
     </div>
-    <p><em>{frontmatter.description}</em></p>
-  </div>
     <slot />
     <div class="tags">
-        {frontmatter.tags.map((tag: string) => (
-          <p class="tag"><a href={`/tags/${tag}`}>{tag}</a></p>
-        ))}
-      </div>
-    <CommentSection client:load slug={slug} />
+      {frontmatter.tags.map((tag: string) => (
+        <p class="tag"><a href={`/tags/${tag}`}>{tag}</a></p>
+      ))}
+    </div>
+  </div>
+  <CommentSection client:load slug={slug} />
 </body>
 </BaseLayout>
