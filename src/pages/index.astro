@@ -2,35 +2,37 @@
 import "../styles/global.css";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogPost from "../components/BlogPost.astro";
-import { supabase } from "../lib/supabase";
+import { pb } from "../lib/pocketbase";
 const pageTitle = "Welcome to My Journal Blog";
-const { data: latestPosts } = await supabase
-  .from("posts")
-  .select("slug, title, description")
-  .eq("published", true)
-  .order("published_at", { ascending: false })
-  .limit(3);
+const { items: latestPosts } = await pb.collection("posts").getList(1, 3, {
+  filter: "published = true",
+  sort: "-publishedAt",
+  fields: "slug,title,description",
+});
 ---
 
 <BaseLayout pageTitle={pageTitle} description="A personal blog about bullet journaling, creative spreads, goal setting, and navigating early career life. Tips, layouts, and inspiration for your journaling journey.">
   <div class="flex flex-col text-lg">
     <p>
     Hello, and welcome to my blog! I share my various learnings and research in tech. For example:
-<ul><li>I'm a software developer in corporate america and we have been using AI a lot.</li>
+<div class="bg-background-300 p-4 rounded-lg mb-4">
+    <ul><li>I'm a software developer in corporate america and we have been using AI a lot.</li>
 <li> I also have been working on this astro blog. </li>
 <li> And to keep all of my projects and thoughts together, I use my bullet journal to keep myself organized.</li>
 </ul>
+</div>
   </p>
     <p>
     Please stay a while and look around! I have tried to hide easter eggs in the site to make things more interesting and as a challenge to my own self to get creative. 
     </p>
-  </div>
+  </div>
 
 <h2>Latest Posts</h2>
-
+<div class="bg-background-300 rounded-lg">
 <ul>
   {(latestPosts ?? []).map((post) => (
     <BlogPost url={`/blog/${post.slug}`} title={post.title} description={post.description} />
   ))}
 </ul>
+</div>
 </BaseLayout>

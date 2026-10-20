@@ -22,3 +22,12 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# local backups of old posts and images
+backup/
+
+# PocketBase binary, local data (database, uploaded files, secrets) and migrations
+pocketbase/
+
+# claude
+.claude/

@@ -1,30 +1,44 @@
 import { useState, useEffect } from "react";
-import { supabase } from "../lib/supabase";
+import { pb } from "../lib/pocketbase";
+import { useUser } from "../lib/useUser";
 import Auth from "./Auth";
 
 interface Profile {
   username: string;
-  avatar_url: string | null;
+  avatarUrl: string | null;
 }
 
 interface CommentLike {
-  user_id: string;
+  userId: string;
 }
 
 interface Comment {
   id: string;
-  post_slug: string;
-  user_id: string;
+  postSlug: string;
+  userId: string;
   content: string;
-  created_at: string;
-  parent_id: string | null;
+  created: string;
+  parentId: string | null;
   profiles: Profile;
-  comment_likes: CommentLike[];
+  commentLikes: CommentLike[];
 }
 
 interface Props {
   slug: string;
 }
+
+const toComment = (record: any, likes: CommentLike[] = []): Comment => {
+  const author = record.expand?.userId;
+  return {
+    ...record,
+    parentId: record.parentId || null,
+    profiles: {
+      username: author?.username || author?.name || "Anonymous",
+      avatarUrl: null,
+    },
+    commentLikes: likes,
+  };
+};
 
 function timeAgo(dateStr: string) {
   const diff = Date.now() - new Date(dateStr).getTime();
@@ -59,12 +73,12 @@ function CommentItem({
   onReply,
   depth,
 }: CommentItemProps) {
-  const likeCount = comment.comment_likes.length;
+  const likeCount = comment.commentLikes.length;
   const userLiked = userId
-    ? comment.comment_likes.some((l) => l.user_id === userId)
+    ? comment.commentLikes.some((l) => l.userId === userId)
     : false;
-  const isOwner = userId === comment.user_id;
-  const replies = allComments.filter((c) => c.parent_id === comment.id);
+  const isOwner = userId === comment.userId;
+  const replies = allComments.filter((c) => c.parentId === comment.id);
 
   return (
     <div
@@ -76,7 +90,7 @@ function CommentItem({
           <span className="font-semibold text-sm">
             {comment.profiles?.username ?? "Anonymous"}
           </span>
-          <span className="text-xs text-gray-400">{timeAgo(comment.created_at)}</span>
+          <span className="text-xs text-gray-400">{timeAgo(comment.created)}</span>
         </div>
         <p className="text-sm text-gray-800 whitespace-pre-wrap">{comment.content}</p>
         <div className="flex items-center gap-3 mt-2">
@@ -135,27 +149,31 @@ export default function CommentSection({ slug }: Props) {
   const [replyingTo, setReplyingTo] = useState<Comment | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
-  const [userId, setUserId] = useState<string | null>(null);
-
-  useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      setUserId(data.user?.id ?? null);
-    });
-  }, []);
+  const userId = useUser()?.id ?? null;
 
   useEffect(() => {
     async function fetchComments() {
       try {
-        const { data } = await supabase
-          .from("comments")
-          .select(`
-            *,
-            profiles(username, avatar_url),
-            comment_likes(user_id)
-          `)
-          .eq("post_slug", slug)
-          .order("created_at", { ascending: true });
-        setComments((data as Comment[]) ?? []);
+        const [records, likes] = await Promise.all([
+          pb.collection("comments").getFullList({
+            filter: pb.filter("postSlug = {:slug}", { slug }),
+            sort: "created",
+            expand: "userId",
+          }),
+          pb.collection("comment_likes").getFullList({
+            filter: pb.filter("commentId.postSlug = {:slug}", { slug }),
+          }),
+        ]);
+        setComments(
+          records.map((r) =>
+            toComment(
+              r,
+              likes
+                .filter((l) => l.commentId === r.id)
+                .map((l) => ({ userId: l.userId })),
+            ),
+          ),
+        );
       } catch {
         setComments([]);
       } finally {
@@ -172,25 +190,21 @@ export default function CommentSection({ slug }: Props) {
     setError("");
 
     try {
-      const { data, error: insertError } = await supabase
-        .from("comments")
-        .insert({
-          post_slug: slug,
-          user_id: userId,
+      const record = await pb.collection("comments").create(
+        {
+          postSlug: slug,
+          userId: userId,
           content: newComment.trim(),
-          parent_id: parentId || null,
-        })
-        .select(`*, profiles(username, avatar_url), comment_likes(user_id)`)
-        .single();
+          parentId: parentId || "",
+        },
+        { expand: "userId" },
+      );
 
-      if (insertError) {
-        setError(insertError.message);
-        return;
-      }
-
-      setComments((prev) => [...prev, data as Comment]);
+      setComments((prev) => [...prev, toComment(record)]);
       setNewComment("");
       setReplyingTo(null);
+    } catch (err: any) {
+      setError(err.message);
     } finally {
       setSubmitting(false);
     }
@@ -198,29 +212,26 @@ export default function CommentSection({ slug }: Props) {
 
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this comment?")) return;
-    const { error: deleteError } = await supabase
-      .from("comments")
-      .delete()
-      .eq("id", id);
-    if (!deleteError) {
-      setComments((prev) => prev.filter((c) => c.id !== id && c.parent_id !== id));
+    try {
+      await pb.collection("comments").delete(id);
+      setComments((prev) => prev.filter((c) => c.id !== id && c.parentId !== id));
+    } catch {
+      // leave the comment in place if the delete was rejected
     }
   };
 
   const handleLike = async (id: string) => {
     if (!userId) return;
 
-    const { data: existingLike } = await supabase
-      .from("comment_likes")
-      .select("id")
-      .eq("comment_id", id)
-      .eq("user_id", userId)
-      .single();
+    const { items } = await pb.collection("comment_likes").getList(1, 1, {
+      filter: pb.filter("commentId = {:id} && userId = {:userId}", { id, userId }),
+    });
+    const existingLike = items[0];
 
     if (existingLike) {
-      await supabase.from("comment_likes").delete().eq("id", existingLike.id);
+      await pb.collection("comment_likes").delete(existingLike.id);
     } else {
-      await supabase.from("comment_likes").insert({ comment_id: id, user_id: userId });
+      await pb.collection("comment_likes").create({ commentId: id, userId: userId });
     }
 
     const liked = !existingLike;
@@ -229,15 +240,15 @@ export default function CommentSection({ slug }: Props) {
         if (c.id !== id) return c;
         return {
           ...c,
-          comment_likes: liked
-            ? [...c.comment_likes, { user_id: userId }]
-            : c.comment_likes.filter((l) => l.user_id !== userId),
+          commentLikes: liked
+            ? [...c.commentLikes, { userId: userId }]
+            : c.commentLikes.filter((l) => l.userId !== userId),
         };
       })
     );
   };
 
-  const topLevel = comments.filter((c) => c.parent_id === null);
+  const topLevel = comments.filter((c) => !c.parentId);
 
   return (
     <div className="mt-10 border-t pt-8">

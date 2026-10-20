@@ -1,18 +1,19 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { supabase } from '../../lib/supabase';
+import { pb } from '../../lib/pocketbase';
 
 const pageTitle = "Browse by Tag | Shannon's Journal Blog";
 
-const { data: tags } = await supabase
-  .from('tags')
-  .select('id, name, slug')
-  .order('name');
+const tags = await pb.collection('tags').getFullList({
+  sort: 'name',
+  fields: 'id,name,slug,description',
+});
 ---
 <BaseLayout pageTitle={pageTitle} description="Browse all topics covered on Shannon's Journal Blog, including bullet journaling, goal setting, career tips, and lifestyle.">
   <div class="tags">
     {(tags ?? []).map((tag) => (
       <p class="tag"><a href={`/tags/${tag.slug}`}>{tag.name}</a></p>
+      <p class="description border-b-2 border-accent-pink">{tag.description}</p>
     ))}
   </div>
 </BaseLayout>

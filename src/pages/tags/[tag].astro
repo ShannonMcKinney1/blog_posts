@@ -1,28 +1,25 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogPost from '../../components/BlogPost.astro';
-import { supabase } from '../../lib/supabase';
+import { pb } from '../../lib/pocketbase';
 
 export async function getStaticPaths() {
-  const { data: tags } = await supabase
-    .from('tags')
-    .select('id, name, slug');
+  const tags = await pb.collection('tags').getFullList({ fields: 'id,name,slug' });
 
   const paths = await Promise.all(
-    (tags ?? []).map(async (tag) => {
-      const { data: posts } = await supabase
-        .from('posts')
-        .select(`
-          id, slug, title, description, published_at,
-          post_tags!inner (tag_id)
-        `)
-        .eq('published', true)
-        .eq('post_tags.tag_id', tag.id)
-        .order('published_at', { ascending: false });
+    tags.map(async (tag) => {
+      const links = await pb.collection('post_tags').getFullList({
+        filter: pb.filter('tagId = {:id} && postId.published = true', { id: tag.id }),
+        expand: 'postId',
+      });
+      const posts = links
+        .map((link) => link.expand?.postId)
+        .filter(Boolean)
+        .sort((a: any, b: any) => (b.publishedAt ?? '').localeCompare(a.publishedAt ?? ''));
 
       return {
         params: { tag: tag.slug },
-        props: { tagName: tag.name, posts: posts ?? [] },
+        props: { tagName: tag.name, posts },
       };
     })
   );
