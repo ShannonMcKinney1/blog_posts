@@ -3,31 +3,30 @@ import { marked } from "marked";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CommentSection from "../../components/CommentSection.tsx";
 import TableOfContents from "../../components/TableOfContents.astro";
-import { supabase } from "../../lib/supabase";
+import { pb } from "../../lib/pocketbase";
 
 export async function getStaticPaths() {
-  const { data: posts } = await supabase
-    .from("posts")
-    .select(`
-      *,
-      post_tags (
-        tags (
-          id,
-          name,
-          slug
-        )
-      )
-    `)
-    .eq("published", true);
+  const [posts, links] = await Promise.all([
+    pb.collection("posts").getFullList({ filter: "published = true" }),
+    pb.collection("post_tags").getFullList({
+      filter: "postId.published = true",
+      expand: "tagId",
+    }),
+  ]);
 
-  return (posts ?? []).map((post) => ({
+  return posts.map((post) => ({
     params: { slug: post.slug },
-    props: { post },
+    props: {
+      post,
+      tags: links
+        .filter((link) => link.postId === post.id)
+        .map((link) => link.expand?.tagId)
+        .filter(Boolean),
+    },
   }));
 }
 
-const { post } = Astro.props;
-const tags = post.post_tags?.map((pt: any) => pt.tags).filter(Boolean) ?? [];
+const { post, tags } = Astro.props;
 
 // Extract headers from markdown
 const headerRegex = /^(#{1,6})\s+(.+)$/gm;
@@ -65,20 +64,20 @@ marked.use({
 let htmlContent = marked.parse(post.content ?? "") as string;
 ---
 
-<BaseLayout pageTitle={post.title} description={post.description}>
+<BaseLayout pageTitle={post.title} description={post.description} hideTitle>
   {headers.length > 0 && <TableOfContents content={post.content ?? ""} />}
   <article>
     <div class="bg-background-secondary-300">
-      {post.cover_image && (
+      <!-- {post.coverImage && (
         <img
-          src={post.cover_image}
+          src={post.coverImage}
           alt={post.title}
-          class="w-full max-h-[400px] object-cover rounded-lg mb-4"
+          class="rounded-lg mb-4"
         />
-      )}
+      )} -->
       <h1>{post.title}</h1>
       <p><em>{post.description}</em></p>
-      <p>Published on {new Date(post.published_at).toLocaleDateString()}</p>
+      <p>Published on {new Date(post.publishedAt).toLocaleDateString()}</p>
     </div>
 
     <div set:html={htmlContent} />

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { supabase } from "../lib/supabase";
+import { pb } from "../lib/pocketbase";
+import { useUser } from "../lib/useUser";
 import Auth from "./Auth";
 import { marked } from "marked";
 
@@ -11,10 +12,11 @@ interface Post {
   title: string;
   description: string | null;
   content: string | null;
-  cover_image: string | null;
+  coverImage: string | null;
+  images?: string[];
   published: boolean;
-  published_at: string | null;
-  author_id: string | null;
+  publishedAt: string | null;
+  authorId: string | null;
 }
 
 interface Tag {
@@ -84,43 +86,54 @@ const btnSecondary: React.CSSProperties = {
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function AdminDashboard() {
+  const user = useUser();
+  const userId = user?.id ?? null;
+  const isAdmin = user?.isAdmin === true;
   const [loading, setLoading] = useState(true);
-  const [userId, setUserId] = useState<string | null>(null);
   const [posts, setPosts] = useState<Post[]>([]);
   const [tags, setTags] = useState<Tag[]>([]);
   const [view, setView] = useState<"list" | "editor">("list");
   const [editingPost, setEditingPost] = useState<Post | null>(null);
 
+  // The cached auth record can be stale (e.g. isAdmin changed since sign-in), so refresh it
+  // from the server before deciding who to show what.
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      setUserId(data.user?.id ?? null);
+    const check = async () => {
+      if (pb.authStore.isValid) {
+        try {
+          await pb.collection("users").authRefresh();
+        } catch {
+          pb.authStore.clear();
+        }
+      }
       setLoading(false);
-    });
+    };
+    check();
   }, []);
 
   useEffect(() => {
-    if (!userId) return;
+    if (!isAdmin) return;
     fetchAll();
-  }, [userId]);
+  }, [isAdmin]);
 
   const fetchAll = async () => {
     const [postsRes, tagsRes] = await Promise.all([
-      supabase.from("posts").select("*").order("published_at", { ascending: false }),
-      supabase.from("tags").select("*").order("name"),
+      pb.collection("posts").getFullList({ sort: "-publishedAt" }),
+      pb.collection("tags").getFullList({ sort: "name" }),
     ]);
-    setPosts(postsRes.data ?? []);
-    setTags(tagsRes.data ?? []);
+    setPosts(postsRes as unknown as Post[]);
+    setTags(tagsRes as unknown as Tag[]);
   };
 
   const handleDelete = async (post: Post) => {
     if (!confirm(`Delete "${post.title}"? This cannot be undone.`)) return;
-    await supabase.from("posts").delete().eq("id", post.id);
+    await pb.collection("posts").delete(post.id);
     setPosts((prev) => prev.filter((p) => p.id !== post.id));
   };
 
   if (loading) return <p style={{ padding: "2rem" }}>Loading...</p>;
 
-  if (!userId) {
+  if (!userId || !isAdmin) {
     return (
       <div
         style={{
@@ -132,14 +145,21 @@ export default function AdminDashboard() {
         }}
       >
         <h2 style={{ marginTop: 0 }}>Admin Sign In</h2>
-        <p style={{ marginBottom: "1.5rem" }}>Sign in to manage your posts.</p>
-        <Auth
-          redirectTo={
-            typeof window !== "undefined"
-              ? `${window.location.origin}/admin/dashboard`
-              : undefined
-          }
-        />
+        {userId ? (
+          <>
+            <p style={{ marginBottom: "1.5rem", color: "#c0392b" }}>
+              Access denied. This account is not an admin.
+            </p>
+            <button onClick={() => pb.authStore.clear()} style={btnSecondary}>
+              Sign out
+            </button>
+          </>
+        ) : (
+          <>
+            <p style={{ marginBottom: "1.5rem" }}>Sign in with the admin account to continue.</p>
+            <Auth />
+          </>
+        )}
       </div>
     );
   }
@@ -269,11 +289,11 @@ function PostList({ posts, onNew, onEdit, onDelete }: PostListProps) {
                 {post.published ? "Published" : "Draft"}
               </span>
 
-              {post.published_at && (
+              {post.publishedAt && (
                 <span
                   style={{ fontSize: "0.75rem", color: "#666", whiteSpace: "nowrap", flexShrink: 0 }}
                 >
-                  {new Date(post.published_at).toLocaleDateString()}
+                  {new Date(post.publishedAt).toLocaleDateString()}
                 </span>
               )}
 
@@ -330,9 +350,9 @@ function PostEditor({ post, tags, userId, onSave, onBack, onTagCreated }: PostEd
   const [slug, setSlug] = useState(post?.slug ?? "");
   const [description, setDescription] = useState(post?.description ?? "");
   const [content, setContent] = useState(post?.content ?? "");
-  const [coverImage, setCoverImage] = useState(post?.cover_image ?? "");
+  const [coverImage, setCoverImage] = useState(post?.coverImage ?? "");
   const [published, setPublished] = useState(post?.published ?? false);
-  const [publishedAt, setPublishedAt] = useState(toLocalDatetime(post?.published_at ?? null));
+  const [publishedAt, setPublishedAt] = useState(toLocalDatetime(post?.publishedAt ?? null));
   const [selectedTagIds, setSelectedTagIds] = useState<string[]>([]);
   const [newTagName, setNewTagName] = useState("");
   const [showPreview, setShowPreview] = useState(false);
@@ -346,33 +366,29 @@ function PostEditor({ post, tags, userId, onSave, onBack, onTagCreated }: PostEd
 
   useEffect(() => {
     if (!post) return;
-    supabase
-      .from("post_tags")
-      .select("tag_id")
-      .eq("post_id", post.id)
-      .then(({ data }) => {
-        setSelectedTagIds((data ?? []).map((pt) => pt.tag_id));
+    pb.collection("post_tags")
+      .getFullList({ filter: pb.filter("postId = {:id}", { id: post.id }) })
+      .then((links) => {
+        setSelectedTagIds(links.map((pt) => pt.tagId));
       });
   }, [post]);
 
   useEffect(() => {
-    if (post?.slug) fetchImages(post.slug);
+    if (post) fetchImages();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const fetchImages = async (targetSlug: string = slug) => {
-    if (!targetSlug) return;
+  // Images live in the post's `images` file field.
+  const fetchImages = async () => {
+    if (!post) return;
     setImagesLoading(true);
-    const { data } = await supabase.storage.from("blog-post-images").list(targetSlug);
-    const images = (data ?? [])
-      .filter((f) => f.name !== ".emptyFolderPlaceholder")
-      .map((f) => {
-        const { data: urlData } = supabase.storage
-          .from("blog-post-images")
-          .getPublicUrl(`${targetSlug}/${f.name}`);
-        return { name: f.name, url: urlData.publicUrl };
-      });
-    setPostImages(images);
+    const record = await pb.collection("posts").getOne(post.id);
+    setPostImages(
+      ((record.images as string[]) ?? []).map((name) => ({
+        name,
+        url: pb.files.getURL(record, name),
+      }))
+    );
     setImagesLoading(false);
   };
 
@@ -393,19 +409,13 @@ function PostEditor({ post, tags, userId, onSave, onBack, onTagCreated }: PostEd
     }
     setUploadLoading(true);
     setImageMsg(null);
-    const results = await Promise.all(
-      files.map((file) =>
-        supabase.storage.from("blog-post-images").upload(`${slug}/${file.name}`, file, { upsert: false })
-      )
-    );
-    const failed = results.filter((r) => r.error);
-    if (failed.length) {
-      const firstError = failed[0].error!.message;
-      setImageMsg({ text: `${failed.length} file(s) failed: ${firstError}`, isError: true });
-    } else {
+    try {
+      await pb.collection("posts").update(post!.id, { "images+": files });
       setImageMsg({ text: `${files.length} image(s) uploaded successfully.`, isError: false });
+    } catch (err: any) {
+      setImageMsg({ text: `Upload failed: ${err.message}`, isError: true });
     }
-    await fetchImages(slug);
+    await fetchImages();
     setUploadLoading(false);
     e.target.value = "";
   };
@@ -418,11 +428,10 @@ function PostEditor({ post, tags, userId, onSave, onBack, onTagCreated }: PostEd
 
   const handleDeleteImage = async (name: string) => {
     if (!confirm(`Delete "${name}"?`)) return;
-    const { error: delError } = await supabase.storage
-      .from("blog-post-images")
-      .remove([`${slug}/${name}`]);
-    if (delError) {
-      setImageMsg({ text: `Failed to delete "${name}": ${delError.message}`, isError: true });
+    try {
+      await pb.collection("posts").update(post!.id, { "images-": [name] });
+    } catch (err: any) {
+      setImageMsg({ text: `Failed to delete "${name}": ${err.message}`, isError: true });
       return;
     }
     setPostImages((prev) => prev.filter((img) => img.name !== name));
@@ -448,15 +457,14 @@ function PostEditor({ post, tags, userId, onSave, onBack, onTagCreated }: PostEd
   const handleCreateTag = async () => {
     const name = newTagName.trim();
     if (!name) return;
-    const { data, error: tagError } = await supabase
-      .from("tags")
-      .insert({ name, slug: toSlug(name) })
-      .select()
-      .single();
-    if (tagError) { setError(tagError.message); return; }
-    onTagCreated(data as Tag);
-    setSelectedTagIds((prev) => [...prev, (data as Tag).id]);
-    setNewTagName("");
+    try {
+      const created = (await pb.collection("tags").create({ name, slug: toSlug(name) })) as unknown as Tag;
+      onTagCreated(created);
+      setSelectedTagIds((prev) => [...prev, created.id]);
+      setNewTagName("");
+    } catch (err: any) {
+      setError(err.message);
+    }
   };
 
   const handleSave = async () => {
@@ -470,42 +478,35 @@ function PostEditor({ post, tags, userId, onSave, onBack, onTagCreated }: PostEd
     const postData = {
       title: title.trim(),
       slug: slug.trim(),
-      description: description.trim() || null,
-      content: content || null,
-      cover_image: coverImage.trim() || null,
+      description: description.trim(),
+      content,
+      coverImage: coverImage.trim(),
       published,
-      published_at: published ? new Date(publishedAt).toISOString() : null,
-      author_id: userId,
+      publishedAt: published ? new Date(publishedAt).toISOString() : "",
+      authorId: userId,
     };
 
-    let postId: string;
+    try {
+      const saved = post
+        ? await pb.collection("posts").update(post.id, postData)
+        : await pb.collection("posts").create(postData);
 
-    if (post) {
-      const { error: updateError } = await supabase
-        .from("posts")
-        .update(postData)
-        .eq("id", post.id);
-      if (updateError) { setError(updateError.message); setSaving(false); return; }
-      postId = post.id;
-    } else {
-      const { data, error: insertError } = await supabase
-        .from("posts")
-        .insert(postData)
-        .select("id")
-        .single();
-      if (insertError) { setError(insertError.message); setSaving(false); return; }
-      postId = (data as { id: string }).id;
+      const existing = await pb
+        .collection("post_tags")
+        .getFullList({ filter: pb.filter("postId = {:id}", { id: saved.id }) });
+      await Promise.all(existing.map((link) => pb.collection("post_tags").delete(link.id)));
+      await Promise.all(
+        selectedTagIds.map((tagId) =>
+          pb.collection("post_tags").create({ postId: saved.id, tagId: tagId })
+        )
+      );
+
+      await onSave();
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setSaving(false);
     }
-
-    await supabase.from("post_tags").delete().eq("post_id", postId);
-    if (selectedTagIds.length > 0) {
-      await supabase
-        .from("post_tags")
-        .insert(selectedTagIds.map((tagId) => ({ post_id: postId, tag_id: tagId })));
-    }
-
-    await onSave();
-    setSaving(false);
   };
 
   return (
@@ -653,7 +654,7 @@ function PostEditor({ post, tags, userId, onSave, onBack, onTagCreated }: PostEd
       {/* Post Images */}
       <div style={fieldStyle}>
         <label style={labelStyle}>Post Images</label>
-        {!slug ? (
+        {!post ? (
           <p style={{ margin: 0, padding: "6px 0", fontSize: "0.85rem", color: "#888" }}>
             Save post first to upload images.
           </p>

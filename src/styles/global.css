@@ -47,6 +47,17 @@ li{
   padding:0.5rem;
 }
 
+/* Blog images scale with the screen height so they always fit without scrolling */
+article img {
+  max-width: 100%;
+  max-height: 90vh;
+  max-height: 90dvh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  margin-inline: auto;
+}
+
 .tags {
   display: flex;
   flex-wrap: wrap;

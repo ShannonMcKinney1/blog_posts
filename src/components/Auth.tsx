@@ -1,9 +1,5 @@
 import { useState } from "react";
-import { supabase } from "../lib/supabase";
-
-interface AuthProps {
-  redirectTo?: string;
-}
+import { pb } from "../lib/pocketbase";
 
 const GoogleLogo = () => (
   <svg width="18" height="18" viewBox="0 0 48 48">
@@ -14,9 +10,7 @@ const GoogleLogo = () => (
   </svg>
 );
 
-export default function Auth({
-  redirectTo,
-}: AuthProps) {
+export default function Auth() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -25,16 +19,10 @@ export default function Auth({
     setError("");
 
     try {
-      const { error: oauthError } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: {
-          redirectTo: redirectTo ?? window.location.href,
-        },
-      });
-
-      if (oauthError) throw oauthError;
+      await pb.collection("users").authWithOAuth2({ provider: "google" });
     } catch (err: any) {
       setError(err.message);
+    } finally {
       setLoading(false);
     }
   };
@@ -63,7 +51,7 @@ export default function Auth({
         }}
       >
         <GoogleLogo />
-        {loading ? "Redirecting..." : "Continue with Google"}
+        {loading ? "Signing in..." : "Continue with Google"}
       </button>
       {error && (
         <p className="text-sm mt-2" style={{ color: "red" }}>

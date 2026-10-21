@@ -1,20 +1,20 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import BlogPost from "../../components/BlogPost.astro";
-import { supabase } from "../../lib/supabase";
+import { pb } from "../../lib/pocketbase";
 
 const pageTitle = "Latest Posts | Shannon's Journal Blog";
 
-const { data: posts } = await supabase
-  .from("posts")
-  .select("id, slug, title, description, published_at, cover_image")
-  .eq("published", true)
-  .order("published_at", { ascending: false });
+const posts = await pb.collection("posts").getFullList({
+  filter: "published = true",
+  sort: "-publishedAt",
+  fields: "id,slug,title,description,publishedAt,coverImage",
+});
 ---
 
 <BaseLayout
   pageTitle={pageTitle}
-  description="Browse all posts on Shannon's Journal Blog — covering bullet journal layouts, page ideas, goal setting, and career tips."
+  description="Browse all posts on Shannon's Journal Blog: covering bullet journal layouts, page ideas, goal setting, and career tips."
 >
   <ul>
     {(posts ?? []).map((post) => (

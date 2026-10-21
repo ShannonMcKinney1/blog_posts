@@ -1,11 +1,25 @@
 ---
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/blog", label: "Blog" },
+  { href: "/tags", label: "Tags" },
+];
 
+const path = Astro.url.pathname.replace(/\/+$/, "") || "/";
+const isActive = (href: string) =>
+  href === "/" ? path === "/" : path === href || path.startsWith(`${href}/`);
 ---
 <div class="nav-links">
-  <a href="/">Home</a>
-  <a href="/about">About</a>
-  <a href="/blog">Blog</a>
-  <a href="/tags">Tags</a>
+  {links.map(({ href, label }) => (
+    <a
+      href={href}
+      class:list={{ active: isActive(href) }}
+      aria-current={isActive(href) ? "page" : undefined}
+    >
+      {label}
+    </a>
+  ))}
 </div>
 <style>
 
@@ -32,6 +46,11 @@
 .nav-links a:hover,
 .nav-links a:focus {
   background-color: #8c1a6a;
+}
+
+.nav-links a.active {
+  background-color: #8c1a6a;
+  color: black;
 }
 
 .expanded {
